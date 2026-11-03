@@ -13,7 +13,9 @@
     <!-- 왼쪽 공통 메뉴 -->
     <aside class="sidebar">
         <a href="#" class="brand">
-            <span class="brand-mark"></span>
+            <img src="${pageContext.request.contextPath}/images/bizmate-logo.png"
+                 alt="BizMate"
+                 class="brand-logo">
         </a>
 
         <nav class="sidebar-nav">

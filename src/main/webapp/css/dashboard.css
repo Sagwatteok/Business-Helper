@@ -53,17 +53,14 @@ button {
 .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 0 12px 38px;
+    justify-content: center;
+    margin: 0 0 38px;
 }
 
-.brand-mark {
-    display: grid;
-    width: 32px;
-    height: 32px;
-    place-items: center;
-    border-radius: 10px;
-    background: var(--primary);
+.brand-logo {
+    display: block;
+    width: 130px;
+    height: auto;
 }
 
 .sidebar-nav {
