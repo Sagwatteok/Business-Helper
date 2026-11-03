@@ -377,3 +377,63 @@ h1 {
     color: var(--text);
     font-weight: 700;
 }
+
+.ai-insight-card {
+    display: flex;
+    gap: 18px;
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid #CFE3EF;
+    border-radius: 14px;
+    background: #F0F8FC;
+}
+
+.insight-icon {
+    display: grid;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    font-size: 20px;
+}
+
+.insight-content {
+    min-width: 0;
+}
+
+.insight-eyebrow {
+    margin-bottom: 6px;
+    color: var(--primary-dark);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.insight-content h2 {
+    margin-bottom: 14px;
+    font-size: 20px;
+}
+
+.insight-message {
+    margin-bottom: 8px;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.insight-recommendation {
+    margin-bottom: 18px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.insight-link {
+    color: var(--primary-dark);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.insight-link:hover {
+    text-decoration: underline;
+}

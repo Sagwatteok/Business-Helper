@@ -170,6 +170,27 @@
                 </table>
             </section>
 
+            <section class="ai-insight-card">
+                <div class="insight-icon" aria-hidden="true">✦</div>
+
+                <div class="insight-content">
+                    <p class="insight-eyebrow">AI 경영 인사이트</p>
+                    <h2>오늘의 매출 기회</h2>
+
+                    <p class="insight-message">
+                        아메리카노 매출이 어제보다 12.4% 증가했어요.
+                    </p>
+
+                    <p class="insight-recommendation">
+                        오후 2~4시에 세트 할인 행사를 운영해 추가 주문을 유도해 보세요.
+                    </p>
+
+                    <a href="#" class="insight-link">
+                        분석 자세히 보기 →
+                    </a>
+                </div>
+            </section>
+
         </main>
     </div>
 </div>
