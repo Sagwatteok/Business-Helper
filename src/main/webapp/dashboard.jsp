@@ -102,12 +102,34 @@
                 </article>
             </section>
 
-            <section class="dashboard-placeholder">
-                <h2>최근 7일 매출 추이</h2>
-                <p>다음 단계에서 이 영역에 Chart.js 차트를 추가합니다.</p>
+            <section class="sales-chart-card">
+                <div class="card-header">
+                    <div>
+                        <h2>최근 7일 매출 추이</h2>
+                        <p>10월 28일 ~ 11월 3일</p>
+                    </div>
+
+                    <button type="button" class="period-button">
+                        최근 7일
+                    </button>
+                </div>
+
+                <div class="sales-summary">
+                    <p>이번 주 총매출</p>
+                    <strong>₩ 2,840,000</strong>
+                    <span class="metric-change positive">▲ 지난주보다 8.1%</span>
+                </div>
+
+                <div class="chart-area">
+                    <canvas id="weeklySalesChart"></canvas>
+                </div>
             </section>
+
         </main>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
 </body>
 </html>
