@@ -13,6 +13,7 @@
     --text: #24445F;
     --text-muted: #6D8495;
     --positive: #27845A;
+    --default-font: Arial, "Malgun Gothic", sans-serif;
 }
 
 * {
@@ -219,6 +220,7 @@ h1 {
     display: block;
     margin-bottom: 12px;
     font-size: 24px;
+    font-family: var(--default-font);
 }
 
 .metric-change,
@@ -285,6 +287,7 @@ h1 {
 
 .sales-summary strong {
     font-size: 26px;
+    font-family: var(--default-font);
 }
 
 .chart-area {
@@ -353,6 +356,10 @@ h1 {
     text-align: right;
 }
 
+.sales-amount {
+    font-family: var(--default-font);
+}
+
 .rank-badge {
     display: inline-grid;
     width: 28px;
@@ -416,13 +423,15 @@ h1 {
 .insight-message {
     margin-bottom: 8px;
     color: var(--text);
-    font-size: 16px;
+    font-size: 13px;
+    font-family: var(--default-font);
 }
 
 .insight-recommendation {
     margin-bottom: 18px;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 12px;
+    font-family: var(--default-font);
 }
 
 .insight-link {
