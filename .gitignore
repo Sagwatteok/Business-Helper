@@ -1,0 +1,28 @@
+# Java build output
+*.class
+target/
+out/
+bin/
+build/
+
+# IDE-specific local settings
+.idea/
+*.iml
+.vscode/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Local Eclipse/Tomcat server data
+.metadata/
+Servers/
+
+# Local secrets and environment settings
+.env
+.env.*
+!.env.example
+
+# Runtime upload and temporary files
+uploads/
+temp/
