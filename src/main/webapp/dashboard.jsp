@@ -125,6 +125,51 @@
                 </div>
             </section>
 
+            <section class="top-product-card">
+                <div class="card-header">
+                    <div>
+                        <h2>인기 상품 TOP 3</h2>
+                        <p>최근 7일 판매량 기준</p>
+                    </div>
+
+                    <a href="#" class="text-link">전체 상품 보기</a>
+                </div>
+
+                <table class="top-product-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">순위</th>
+                        <th scope="col">상품명</th>
+                        <th scope="col">판매 수량</th>
+                        <th scope="col">매출액</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td><span class="rank-badge rank-first">1</span></td>
+                        <td>아메리카노</td>
+                        <td>128잔</td>
+                        <td class="sales-amount">₩ 576,000</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="rank-badge">2</span></td>
+                        <td>카페라떼</td>
+                        <td>86잔</td>
+                        <td class="sales-amount">₩ 473,000</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="rank-badge">3</span></td>
+                        <td>바닐라라떼</td>
+                        <td>64잔</td>
+                        <td class="sales-amount">₩ 384,000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
         </main>
     </div>
 </div>
