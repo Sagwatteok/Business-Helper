@@ -26,3 +26,6 @@ Servers/
 # Runtime upload and temporary files
 uploads/
 temp/
+
+# Local reference materials (do not commit)
+기타자료/
