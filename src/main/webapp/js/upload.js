@@ -39,11 +39,15 @@ salesFile.addEventListener("change", function () {
     nextButton.disabled = false;
 });
 
-
 removeFile.addEventListener("click", function () {
     resetFile();
 });
 
+nextButton.addEventListener("click", function () {
+    if (!nextButton.disabled) {
+        window.location.href = "preview.jsp";
+    }
+});
 
 
 function resetFile() { //파일 선택 상태 초기화

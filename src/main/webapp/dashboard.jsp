@@ -23,7 +23,7 @@
                 <span class="nav-icon"></span>
                 대시보드
             </a>
-            <a href="#" class="nav-item">
+            <a href="${pageContext.request.contextPath}/sales/upload.jsp" class="nav-item">
                 <span class="nav-icon"></span>
                 매출 데이터
             </a>

@@ -80,6 +80,10 @@
     background: #F0F8FC;
 }
 
+.selected-file[hidden] { /* 선택 취소하면 파일 숨기기 */
+    display: none;
+}
+
 .selected-file-label {
     margin-bottom: 4px;
     color: var(--text-muted);

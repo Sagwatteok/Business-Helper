@@ -7,11 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BizMate | 매출 데이터 업로드</title>
 
-    <!-- 기존 공통 레이아웃 스타일 -->
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/dashboard.css">
 
-    <!-- 업로드 화면 전용 스타일 -->
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/upload.css">
 </head>
