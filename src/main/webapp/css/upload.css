@@ -1,0 +1,133 @@
+.upload-main {
+    max-width: 960px;
+}
+
+.upload-intro {
+    margin-bottom: 24px;
+}
+
+.upload-intro h2 {
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+.upload-intro p {
+    margin-bottom: 0;
+    color: var(--text-muted);
+}
+
+.upload-card {
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+}
+
+.file-select-area {
+    display: flex;
+    min-height: 260px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    background: #FAFCFD;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.file-select-area:hover {
+    border-color: var(--primary);
+    background: #F0F8FC;
+}
+
+.file-select-area strong {
+    color: var(--text);
+    font-size: 18px;
+}
+
+.file-select-area span:last-child {
+    font-size: 14px;
+}
+
+.upload-icon {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border-radius: 50%;
+    background: #EAF4FA;
+    color: var(--primary-dark);
+    font-size: 24px;
+}
+
+.upload-guide {
+    margin: 14px 0 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+.selected-file {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid #CFE3EF;
+    border-radius: 10px;
+    background: #F0F8FC;
+}
+
+.selected-file-label {
+    margin-bottom: 4px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.selected-file strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.selected-file span {
+    color: var(--text-muted);
+    font-family: var(--default-font);
+    font-size: 13px;
+}
+
+.remove-file-button {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.upload-error {
+    margin: 16px 0 0;
+    color: #C74343;
+    font-family: var(--default-font);
+    font-size: 14px;
+}
+
+.next-button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.next-button:disabled {
+    background: #C9D8E2;
+    cursor: not-allowed;
+}
