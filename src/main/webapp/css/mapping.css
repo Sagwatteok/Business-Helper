@@ -1,0 +1,112 @@
+.mapping-main {
+    max-width: 1000px;
+}
+
+.mapping-intro {
+    margin-bottom: 24px;
+}
+
+.mapping-intro h2 {
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+.mapping-intro p {
+    margin-bottom: 0;
+    color: var(--text-muted);
+}
+
+.mapping-card {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+}
+
+.mapping-list {
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.mapping-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    padding: 22px 8px;
+    border-bottom: 1px solid #EDF3F7;
+}
+
+.mapping-label {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mapping-label strong {
+    font-size: 16px;
+    margin: 0 7px;
+}
+
+.mapping-label p {
+    width: 100%;
+    margin: 4px 7px 0;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.required-badge,
+.optional-badge {
+    padding: 3px 7px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.required-badge {
+    background: #EAF4FA;
+    color: var(--primary-dark);
+}
+
+.optional-badge {
+    background: #EDF3F7;
+    color: var(--text-muted);
+}
+
+.mapping-select {
+    width: 100%;
+    padding: 10px 17px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.mapping-select:focus {
+    outline: 2px solid #CFE3EF;
+    border-color: var(--primary);
+}
+
+.mapping-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.mapping-next-button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.mapping-next-button:disabled {
+    background: #C9D8E2;
+    cursor: not-allowed;
+}

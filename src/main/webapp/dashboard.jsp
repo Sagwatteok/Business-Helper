@@ -19,7 +19,7 @@
         </a>
 
         <nav class="sidebar-nav">
-            <a href="dashboard.jsp" class="nav-item">
+            <a href="dashboard.jsp" class="nav-item is-active">
                 <span class="nav-icon"></span>
                 대시보드
             </a>

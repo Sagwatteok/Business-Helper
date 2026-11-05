@@ -166,8 +166,7 @@
                     이전: 파일 다시 선택
                 </a>
 
-                <!-- 열 매핑 화면을 만든 뒤 mapping.jsp로 변경 -->
-                <a href="#" class="primary-button">
+                <a href="mapping.jsp" class="primary-button">
                     다음: 열 매핑
                 </a>
             </div>
