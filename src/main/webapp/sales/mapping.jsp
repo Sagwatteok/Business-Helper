@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,60 +24,12 @@
 <body>
 <div class="app-layout">
 
-    <aside class="sidebar">
-        <a href="${pageContext.request.contextPath}/dashboard.jsp" class="brand">
-            <img src="${pageContext.request.contextPath}/images/bizmate-logo.png"
-                 alt="BizMate"
-                 class="brand-logo">
-        </a>
-
-        <nav class="sidebar-nav" aria-label="주요 메뉴">
-            <a href="${pageContext.request.contextPath}/dashboard.jsp" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                대시보드
-            </a>
-
-            <a href="#" class="nav-item is-active">
-                <span class="nav-icon" aria-hidden="true"></span>
-                매출 데이터
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                상품 관리
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                비용 관리
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                분석 리포트
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                AI 경영 코칭
-            </a>
-        </nav>
-
-        <div class="sidebar-bottom">
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                설정
-            </a>
-        </div>
-    </aside>
+    <jsp:include page="/WEB-INF/views/sidebar.jsp">
+        <jsp:param name="activeMenu" value="sales" />
+    </jsp:include>
 
     <div class="page-area">
-        <header class="top-header">
-            <div>
-                <p class="page-eyebrow">Sales Data</p>
-                <h1>매출 데이터 업로드</h1>
-            </div>
-        </header>
+        <ui:header eyebrow="Sales Data" title="매출 데이터 업로드" />
 
         <main class="main-content mapping-main">
             <section class="mapping-intro">
@@ -110,12 +63,12 @@
                 <div class="mapping-list">
                     <div class="mapping-row">
                         <div class="mapping-label">
-                            <strong>판매일자</strong>
+                            <label for="map-sale-date" class="mapping-field-label">판매일자</label>
                             <span class="required-badge">필수</span>
                             <p>거래가 발생한 날짜와 시간입니다.</p>
                         </div>
 
-                        <select class="mapping-select" required>
+                        <select id="map-sale-date" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
                             <option value="transactionDate" selected>거래일시</option>
                             <option value="productName">메뉴명</option>
@@ -127,12 +80,12 @@
 
                     <div class="mapping-row">
                         <div class="mapping-label">
-                            <strong>상품명</strong>
+                            <label for="map-product-name" class="mapping-field-label">상품명</label>
                             <span class="required-badge">필수</span>
                             <p>판매한 메뉴 또는 상품 이름입니다.</p>
                         </div>
 
-                        <select class="mapping-select" required>
+                        <select id="map-product-name" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
                             <option value="transactionDate">거래일시</option>
                             <option value="productName" selected>메뉴명</option>
@@ -144,12 +97,12 @@
 
                     <div class="mapping-row">
                         <div class="mapping-label">
-                            <strong>수량</strong>
+                            <label for="map-quantity" class="mapping-field-label">수량</label>
                             <span class="required-badge">필수</span>
                             <p>한 주문에서 판매한 상품 수량입니다.</p>
                         </div>
 
-                        <select class="mapping-select" required>
+                        <select id="map-quantity" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
                             <option value="transactionDate">거래일시</option>
                             <option value="productName">메뉴명</option>
@@ -161,12 +114,12 @@
 
                     <div class="mapping-row">
                         <div class="mapping-label">
-                            <strong>품목 합계</strong>
+                            <label for="map-line-total" class="mapping-field-label">품목 합계</label>
                             <span class="required-badge">필수</span>
                             <p>해당 상품의 총 판매 금액입니다.</p>
                         </div>
 
-                        <select class="mapping-select" required>
+                        <select id="map-line-total" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
                             <option value="transactionDate">거래일시</option>
                             <option value="productName">메뉴명</option>
@@ -178,12 +131,12 @@
 
                     <div class="mapping-row">
                         <div class="mapping-label">
-                            <strong>주문번호</strong>
+                            <label for="map-order-no" class="mapping-field-label">주문번호</label>
                             <span class="optional-badge">선택</span>
                             <p>주문을 구분할 수 있는 번호입니다.</p>
                         </div>
 
-                        <select class="mapping-select">
+                        <select id="map-order-no" class="mapping-select">
                             <option value="">연결하지 않음</option>
                             <option value="transactionDate">거래일시</option>
                             <option value="productName">메뉴명</option>

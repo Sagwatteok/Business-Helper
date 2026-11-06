@@ -18,3 +18,7 @@ requiredSelects.forEach(function (select) {
 });
 
 checkRequiredMapping();
+
+mappingNextButton.addEventListener("click", function () {
+    window.location.href = "validation.jsp";
+});

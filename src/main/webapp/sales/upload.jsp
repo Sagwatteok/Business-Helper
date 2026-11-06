@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,60 +17,12 @@
 <body>
 <div class="app-layout">
 
-    <aside class="sidebar">
-        <a href="${pageContext.request.contextPath}/dashboard.jsp" class="brand">
-            <img src="${pageContext.request.contextPath}/images/bizmate-logo.png"
-                 alt="BizMate"
-                 class="brand-logo">
-        </a>
-
-        <nav class="sidebar-nav" aria-label="주요 메뉴">
-            <a href="${pageContext.request.contextPath}/dashboard.jsp" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                대시보드
-            </a>
-
-            <a href="#" class="nav-item is-active">
-                <span class="nav-icon" aria-hidden="true"></span>
-                매출 데이터
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                상품 관리
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                비용 관리
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                분석 리포트
-            </a>
-
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                AI 경영 코칭
-            </a>
-        </nav>
-
-        <div class="sidebar-bottom">
-            <a href="#" class="nav-item">
-                <span class="nav-icon" aria-hidden="true"></span>
-                설정
-            </a>
-        </div>
-    </aside>
+    <jsp:include page="/WEB-INF/views/sidebar.jsp">
+        <jsp:param name="activeMenu" value="sales" />
+    </jsp:include>
 
     <div class="page-area">
-        <header class="top-header">
-            <div>
-                <p class="page-eyebrow">Sales Data</p>
-                <h1>매출 데이터 업로드</h1>
-            </div>
-        </header>
+        <ui:header eyebrow="Sales Data" title="매출 데이터 업로드" />
 
         <main class="main-content upload-main">
             <section class="upload-intro">

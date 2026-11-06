@@ -44,8 +44,9 @@
     gap: 8px;
 }
 
-.mapping-label strong {
+.mapping-field-label {
     font-size: 16px;
+    font-weight: 700;
     margin: 0 7px;
 }
 
