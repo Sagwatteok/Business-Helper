@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="table-scroll">
-                    <table class="preview-table">
+                    <table class="preview-table sales-preview-table">
                         <thead>
                         <tr>
                             <th scope="col">거래일시</th>
@@ -66,6 +66,8 @@
                             <th scope="col">판매수량</th>
                             <th scope="col">판매금액</th>
                             <th scope="col">주문번호</th>
+                            <th scope="col">단가</th>
+                            <th scope="col">주문경로</th>
                         </tr>
                         </thead>
 
@@ -76,6 +78,8 @@
                             <td>2</td>
                             <td>₩ 9,000</td>
                             <td>A-1001</td>
+                            <td>₩ 4,500</td>
+                            <td>매장 POS</td>
                         </tr>
 
                         <tr>
@@ -84,6 +88,8 @@
                             <td>1</td>
                             <td>₩ 5,500</td>
                             <td>A-1002</td>
+                            <td>₩ 5,500</td>
+                            <td>키오스크</td>
                         </tr>
 
                         <tr>
@@ -92,6 +98,8 @@
                             <td>1</td>
                             <td>₩ 6,000</td>
                             <td>A-1003</td>
+                            <td>₩ 6,000</td>
+                            <td>배달의민족</td>
                         </tr>
 
                         <tr>
@@ -100,6 +108,8 @@
                             <td>3</td>
                             <td>₩ 13,500</td>
                             <td>A-1004</td>
+                            <td>₩ 4,500</td>
+                            <td>매장 POS</td>
                         </tr>
 
                         <tr>
@@ -108,6 +118,8 @@
                             <td>2</td>
                             <td>₩ 11,000</td>
                             <td>A-1005</td>
+                            <td>₩ 5,500</td>
+                            <td>키오스크</td>
                         </tr>
                         </tbody>
                     </table>

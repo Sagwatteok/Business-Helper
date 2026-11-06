@@ -18,7 +18,7 @@
           href="${pageContext.request.contextPath}/css/preview.css">
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/mapping.css">
+          href="${pageContext.request.contextPath}/css/mapping.css?v=2">
 </head>
 
 <body>
@@ -75,6 +75,8 @@
                             <option value="quantity">판매수량</option>
                             <option value="salesAmount">판매금액</option>
                             <option value="orderNo">주문번호</option>
+                            <option value="unitPrice">단가</option>
+                            <option value="orderChannel">주문경로</option>
                         </select>
                     </div>
 
@@ -92,6 +94,8 @@
                             <option value="quantity">판매수량</option>
                             <option value="salesAmount">판매금액</option>
                             <option value="orderNo">주문번호</option>
+                            <option value="unitPrice">단가</option>
+                            <option value="orderChannel">주문경로</option>
                         </select>
                     </div>
 
@@ -109,14 +113,29 @@
                             <option value="quantity" selected>판매수량</option>
                             <option value="salesAmount">판매금액</option>
                             <option value="orderNo">주문번호</option>
+                            <option value="unitPrice">단가</option>
+                            <option value="orderChannel">주문경로</option>
                         </select>
                     </div>
 
                     <div class="mapping-row">
                         <div class="mapping-label">
-                            <label for="map-line-total" class="mapping-field-label">품목 합계</label>
+                            <label for="amount-basis" class="mapping-field-label">금액 기준</label>
                             <span class="required-badge">필수</span>
-                            <p>해당 상품의 총 판매 금액입니다.</p>
+                            <p id="amount-example" aria-live="polite">품목 합계 열의 금액을 그대로 사용합니다.</p>
+                        </div>
+
+                        <select id="amount-basis" class="mapping-select" aria-describedby="amount-example" required>
+                            <option value="lineTotal" selected>품목 합계</option>
+                            <option value="unitPrice">단가</option>
+                        </select>
+                    </div>
+
+                    <div class="mapping-row">
+                        <div class="mapping-label">
+                            <label for="map-line-total" class="mapping-field-label">금액 열</label>
+                            <span class="required-badge">필수</span>
+                            <p>선택한 금액 기준에 해당하는 원본 파일 열을 연결합니다.</p>
                         </div>
 
                         <select id="map-line-total" class="mapping-select" required>
@@ -126,6 +145,8 @@
                             <option value="quantity">판매수량</option>
                             <option value="salesAmount" selected>판매금액</option>
                             <option value="orderNo">주문번호</option>
+                            <option value="unitPrice">단가</option>
+                            <option value="orderChannel">주문경로</option>
                         </select>
                     </div>
 
@@ -143,6 +164,21 @@
                             <option value="quantity">판매수량</option>
                             <option value="salesAmount">판매금액</option>
                             <option value="orderNo" selected>주문번호</option>
+                            <option value="unitPrice">단가</option>
+                            <option value="orderChannel">주문경로</option>
+                        </select>
+                    </div>
+
+                    <div class="mapping-row">
+                        <div class="mapping-label">
+                            <label for="map-order-channel" class="mapping-field-label">주문 경로</label>
+                            <span class="optional-badge">선택</span>
+                            <p>매장 POS, 키오스크처럼 주문이 접수된 곳입니다.</p>
+                        </div>
+
+                        <select id="map-order-channel" class="mapping-select">
+                            <option value="" selected>연결하지 않음</option>
+                            <option value="orderChannel">주문경로</option>
                         </select>
                     </div>
                 </div>
@@ -165,6 +201,6 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/mapping.js"></script>
+<script src="${pageContext.request.contextPath}/js/mapping.js?v=2"></script>
 </body>
 </html>

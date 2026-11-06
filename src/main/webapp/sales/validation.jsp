@@ -34,7 +34,7 @@
                 <p>샘플 데이터로 정상 행과 오류 행의 표시 방식을 확인할 수 있어요.</p>
             </section>
 
-            <section class="file-summary-card" aria-label="검증 요약">
+            <section class="file-summary-card">
                 <div class="file-summary-content">
                     <strong>sales_2026_11.csv</strong>
                     <div class="file-summary-detail">
@@ -45,7 +45,7 @@
                 </div>
             </section>
 
-            <section class="preview-table-card" aria-labelledby="error-heading">
+            <section class="preview-table-card">
                 <h2 id="error-heading">수정이 필요한 행</h2>
 
                 <div class="table-scroll">

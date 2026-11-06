@@ -6,7 +6,7 @@
                  class="brand-logo">
         </a>
 
-        <nav class="sidebar-nav" aria-label="주요 메뉴">
+        <nav class="sidebar-nav">
             <a href="${pageContext.request.contextPath}/dashboard.jsp" class="nav-item ${param.activeMenu eq 'dashboard' ? 'is-active' : ''}">
                 <span class="nav-icon" aria-hidden="true"></span>
                 대시보드
@@ -17,7 +17,8 @@
                 매출 데이터
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="${pageContext.request.contextPath}/product/product_list.jsp"
+               class="nav-item ${param.activeMenu eq 'product' ? 'is-active' : ''}">
                 <span class="nav-icon" aria-hidden="true"></span>
                 상품 관리
             </a>
