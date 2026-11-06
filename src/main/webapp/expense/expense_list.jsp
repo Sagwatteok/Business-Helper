@@ -32,6 +32,11 @@
                         <h2>11월 지출 내역</h2>
                         <p>매장 운영에 실제로 지출한 비용을 확인하세요.</p>
                     </div>
+
+                    <div class="expense-header-actions">
+                        <a href="expense_upload.jsp" class="secondary-button">CSV로 가져오기</a>
+                        <a href="expense_form.jsp" class="primary-button">+ 비용 추가</a>
+                    </div>
                 </div>
 
                 <div class="sales-summary">

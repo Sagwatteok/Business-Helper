@@ -16,6 +16,7 @@
 
 .product-form-card {
     max-width: 860px;
+    margin-inline: auto;
     padding: 32px;
     box-shadow: 0 12px 32px rgba(36, 68, 95, 0.05);
 }

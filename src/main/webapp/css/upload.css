@@ -1,5 +1,7 @@
 .upload-main {
+    width: 100%;
     max-width: 960px;
+    margin-inline: auto;
 }
 
 .upload-intro {
@@ -80,7 +82,7 @@
     background: #F0F8FC;
 }
 
-.selected-file[hidden] { /* ¼±ÅÃ Ãë¼ÒÇÏ¸é ÆÄÀÏ ¼û±â±â */
+.selected-file[hidden] { /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ */
     display: none;
 }
 
