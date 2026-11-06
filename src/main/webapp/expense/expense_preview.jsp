@@ -36,6 +36,7 @@
 
         <div class="preview-actions">
           <a href="expense_upload.jsp" class="secondary-button">이전: 파일 다시 선택</a>
+          <a href="expense_mapping.jsp" class="secondary-button">다음 단계로 이동</a>
         </div>
 
         <div class="table-scroll">
