@@ -107,6 +107,7 @@
     text-align: right;
 }
 
+.preview-table tbody tr:last-child th,
 .preview-table tbody tr:last-child td {
     border-bottom: none;
 }

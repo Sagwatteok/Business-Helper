@@ -1,0 +1,8 @@
+.expense-table th:last-child,
+.expense-table .expense-amount {
+    text-align: right;
+}
+
+.expense-table .expense-amount {
+    font-family: var(--default-font);
+}

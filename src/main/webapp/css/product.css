@@ -178,6 +178,11 @@
     font-weight: 700;
 }
 
+.product-table tbody tr:last-child > th,
+.product-table tbody tr:last-child > td {
+    border-bottom: 1px solid #EDF3F7;
+}
+
 .product-table td:last-child {
     color: var(--positive);
     font-weight: 700;
