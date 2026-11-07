@@ -201,6 +201,6 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/mapping.js?v=2"></script>
+<script src="${pageContext.request.contextPath}/js/mapping.js?v=3"></script>
 </body>
 </html>

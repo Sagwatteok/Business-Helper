@@ -2,6 +2,11 @@ const requiredSelects = document.querySelectorAll(".mapping-select[required]");
 const mappingNextButton = document.getElementById("mappingNextButton");
 const amountBasis = document.getElementById("amount-basis");
 const amountExample = document.getElementById("amount-example");
+const previousAmountBasis = new URLSearchParams(window.location.search).get("amountBasis");
+
+if (previousAmountBasis === "unitPrice" || previousAmountBasis === "lineTotal") {
+    amountBasis.value = previousAmountBasis;
+}
 
 function checkRequiredMapping() { //필수 열 매핑 항목을 모두 선택했을 때만 버튼 활성화
     let isComplete = true;

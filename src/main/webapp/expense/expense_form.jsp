@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>BizMate | 비용 추가</title>
+  <title>BizMate | 지출 추가</title>
 
   <link rel="stylesheet"
         href="${pageContext.request.contextPath}/css/dashboard.css">
@@ -23,7 +23,7 @@
   </jsp:include>
 
   <div class="page-area">
-    <ui:header eyebrow="Expenses" title="비용 관리" />
+    <ui:header eyebrow="Expenses" title="지출 관리" />
 
     <main class="main-content preview-main">
       <section class="preview-table-card">
@@ -67,7 +67,7 @@
 
           <div class="preview-actions">
             <a href="expense_list.jsp" class="secondary-button">취소</a>
-            <button type="button" class="primary-button" disabled>비용 등록</button>
+            <button type="button" class="primary-button" disabled>지출 등록</button>
           </div>
         </form>
       </section>

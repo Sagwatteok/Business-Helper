@@ -3,6 +3,8 @@ const checkButton = document.getElementById("sales-review-check");
 const resultMessage = document.getElementById("sales-review-result");
 const amountFormatter = new Intl.NumberFormat("ko-KR");
 const unitPriceBasis = new URLSearchParams(window.location.search).get("amountBasis") === "unitPrice";
+document.getElementById("sales-review-back").href =
+    "mapping.jsp?amountBasis=" + (unitPriceBasis ? "unitPrice" : "lineTotal");
 const fieldLabels = {
     date: "판매일자",
     product: "상품명",
@@ -18,6 +20,9 @@ const missingMessages = {
 };
 
 document.getElementById("sales-amount-heading").textContent = unitPriceBasis ? "단가" : "품목 합계";
+reviewTable.querySelectorAll(".sales-line-total").forEach(function (cell) {
+    cell.hidden = !unitPriceBasis;
+});
 document.getElementById("sales-amount-guide").textContent = unitPriceBasis
     ? "단가 × 수량으로 품목 합계를 계산합니다."
     : "금액에는 품목 합계를 입력하세요. 수량을 바꿔도 품목 합계는 그대로 사용합니다.";

@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>BizMate | 비용 열 매핑</title>
+    <title>BizMate | 지출 열 매핑</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/dashboard.css">
@@ -25,12 +25,12 @@
     </jsp:include>
 
     <div class="page-area">
-        <ui:header eyebrow="Expenses" title="비용 관리" />
+        <ui:header eyebrow="Expenses" title="지출 관리" />
 
         <main class="main-content mapping-main">
             <section class="mapping-intro">
-                <h2>비용 파일의 열을 연결해 주세요</h2>
-                <p>샘플 파일의 열을 BizMate 비용 항목과 연결합니다.</p>
+                <h2>지출 파일의 열을 연결해 주세요</h2>
+                <p>샘플 파일의 열을 BizMate 지출 항목과 연결합니다.</p>
             </section>
 
             <section class="mapping-card">
@@ -46,7 +46,7 @@
                         <div class="mapping-label">
                             <label for="map-expense-date" class="mapping-field-label">지출일</label>
                             <span class="required-badge">필수</span>
-                            <p>비용을 지출한 날짜입니다.</p>
+                            <p>실제로 지출한 날짜입니다.</p>
                         </div>
                         <select id="map-expense-date" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>

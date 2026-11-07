@@ -45,7 +45,7 @@
                 </article>
 
                 <article class="metric-card">
-                    <p class="metric-label">오늘 비용</p>
+                    <p class="metric-label">오늘 지출</p>
                     <strong class="metric-value">₩ 96,000</strong>
                     <p class="metric-description">재료비, 배달비 포함</p>
                 </article>

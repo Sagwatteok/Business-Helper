@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>BizMate | 비용 관리</title>
+    <title>BizMate | 지출 관리</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/dashboard.css">
@@ -23,24 +23,24 @@
     </jsp:include>
 
     <div class="page-area">
-        <ui:header eyebrow="Expenses" title="비용 관리" />
+        <ui:header eyebrow="Expenses" title="지출 관리" />
 
         <main class="main-content preview-main">
             <section class="preview-table-card">
                 <div class="card-header">
                     <div>
                         <h2>11월 지출 내역</h2>
-                        <p>매장 운영에 실제로 지출한 비용을 확인하세요.</p>
+                        <p>매장 운영에 실제로 지출한 내역을 확인하세요.</p>
                     </div>
 
                     <div class="expense-header-actions">
                         <a href="expense_upload.jsp" class="secondary-button">CSV로 가져오기</a>
-                        <a href="expense_form.jsp" class="primary-button">+ 비용 추가</a>
+                        <a href="expense_form.jsp" class="primary-button">+ 지출 추가</a>
                     </div>
                 </div>
 
                 <div class="sales-summary">
-                    <p>2026년 11월 등록 비용 합계</p>
+                    <p>2026년 11월 등록 지출 합계</p>
                     <strong>₩ 812,000</strong>
                 </div>
 

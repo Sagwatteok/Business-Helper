@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>BizMate | 비용 CSV 가져오기</title>
+    <title>BizMate | 지출 CSV 가져오기</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/dashboard.css">
@@ -25,11 +25,11 @@
     </jsp:include>
 
     <div class="page-area">
-        <ui:header eyebrow="Expenses" title="비용 관리" />
+        <ui:header eyebrow="Expenses" title="지출 관리" />
 
         <main class="main-content upload-main">
             <section class="upload-intro">
-                <h2>비용 CSV 파일을 선택해 주세요</h2>
+                <h2>지출 CSV 파일을 선택해 주세요</h2>
                 <p>지출일, 분류, 지출 내용, 금액이 들어 있는 CSV 파일을 선택하세요.</p>
             </section>
 
@@ -38,7 +38,7 @@
 
                 <label for="expense-csv" class="file-select-area">
                     <span class="upload-icon">↑</span>
-                    <strong>클릭하여 비용 파일을 선택하세요</strong>
+                    <strong>클릭하여 지출 파일을 선택하세요</strong>
                     <span>CSV, XLS, XLSX 파일을 지원합니다.</span>
                 </label>
 

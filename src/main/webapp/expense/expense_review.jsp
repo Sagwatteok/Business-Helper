@@ -23,7 +23,7 @@
   </jsp:include>
 
   <div class="page-area">
-    <ui:header eyebrow="Expenses" title="비용 관리" />
+    <ui:header eyebrow="Expenses" title="지출 관리" />
 
     <main class="main-content preview-main">
       <section class="preview-table-card">

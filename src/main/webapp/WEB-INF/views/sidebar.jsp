@@ -17,16 +17,16 @@
                 매출 데이터
             </a>
 
+            <a href="${pageContext.request.contextPath}/expense/expense_list.jsp"
+               class="nav-item ${param.activeMenu eq 'expense' ? 'is-active' : ''}">
+                <span class="nav-icon"></span>
+                지출 관리
+            </a>
+
             <a href="${pageContext.request.contextPath}/product/product_list.jsp"
                class="nav-item ${param.activeMenu eq 'product' ? 'is-active' : ''}">
                 <span class="nav-icon" aria-hidden="true"></span>
                 상품 관리
-            </a>
-
-            <a href="${pageContext.request.contextPath}/expense/expense_list.jsp"
-               class="nav-item ${param.activeMenu eq 'expense' ? 'is-active' : ''}">
-                <span class="nav-icon"></span>
-                비용 관리
             </a>
 
             <a href="#" class="nav-item">
