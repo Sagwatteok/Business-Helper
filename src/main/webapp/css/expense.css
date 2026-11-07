@@ -164,9 +164,128 @@
 .expense-review-memo {
     width: 100%;
     min-width: 160px;
+    height: 38px;
     padding: 8px 10px;
     border: 1px solid var(--border);
     border-radius: 8px;
     color: var(--text);
     font: inherit;
+    font-family: var(--default-font);
+    font-size: 12px;
+    background: #FAFCFD;
+}
+
+.expense-review-amount {
+    display: block;
+    width: 140px;
+    height: 38px;
+    margin: 0 0 0 auto;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font: inherit;
+    font-family: "LeeSeoyun", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: right;
+}
+
+.expense-review-table td {
+    vertical-align: top;
+}
+
+.expense-review-amount[hidden],
+.expense-review-editor[hidden],
+.expense-review-value[hidden] {
+    display: none;
+}
+
+.expense-review-value {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.expense-review-value:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.expense-amount .expense-review-value {
+    text-align: right;
+}
+
+.expense-review-value:hover {
+    background: #F0F8FC;
+    border-radius: 6px;
+}
+
+.expense-review-editor {
+    width: 100%;
+    min-width: 110px;
+    height: 38px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    background: white;
+    font: inherit;
+}
+
+.expense-review-editor:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.expense-review-editor.is-invalid {
+    border-color: #E5A0A0;
+    background: #FFF2F2;
+}
+
+.expense-review-table .expense-amount {
+    padding-top: 15px;
+    white-space: nowrap;
+}
+
+.expense-review-table .expense-amount:has(input) {
+    padding-top: 15px;
+}
+
+.expense-review-amount.is-invalid {
+    border-color: #E5A0A0;
+    background: #FFF2F2;
+    color: #B64040;
+}
+
+.expense-review-amount.is-invalid::placeholder {
+    color: #9AA4AE;
+    font-size: inherit;
+}
+
+.expense-review-memo::placeholder,
+.expense-review-amount::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
+}
+
+.expense-review-memo:focus,
+.expense-review-amount:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.expense-review-error {
+    margin: 6px 0 0;
+    color: #B64040;
+    font-family: var(--default-font);
+    font-size: 11px;
+    font-weight: 400;
 }
