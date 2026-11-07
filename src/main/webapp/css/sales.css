@@ -1,0 +1,114 @@
+.sales-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sales-table th:nth-child(3),
+.sales-table th:nth-child(4),
+.sales-table td:nth-child(3),
+.sales-table td:nth-child(4) {
+    text-align: right;
+}
+
+.sales-review-table th:nth-child(5),
+.sales-review-table td:nth-child(5) {
+    text-align: right;
+}
+
+.sales-review-table td:nth-child(5) {
+    font-family: var(--default-font);
+    font-size: 12px;
+}
+
+.sales-table td:nth-child(4) {
+    font-family: var(--default-font);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sales-form-card {
+    max-width: 860px;
+    margin-inline: auto;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(36, 68, 95, 0.05);
+}
+
+.sales-form-card > h2 {
+    margin-bottom: 6px;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+}
+
+.sales-form-card > p {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.sales-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+}
+
+.sales-form > p {
+    margin: 0;
+}
+
+.sales-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.sales-form input {
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    color: var(--text);
+    font-family: var(--default-font);
+    font-size: 12px;
+}
+
+.sales-form input::placeholder {
+    color: #9AAEBC;
+}
+
+.sales-form input:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.sales-form .preview-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 22px;
+    border-top: 1px solid #EDF3F7;
+}
+
+.sales-form .primary-button,
+.sales-form .secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 104px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.sales-form .primary-button {
+    border: 1px solid var(--primary);
+    cursor: pointer;
+}

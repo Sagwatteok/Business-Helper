@@ -82,7 +82,13 @@
 
         <div class="preview-actions">
           <a href="expense_mapping.jsp" class="secondary-button">이전: 열 매핑</a>
+          <button type="button" id="expense-review-check" class="secondary-button">
+            입력 확인 완료
+          </button>
         </div>
+
+        <p id="expense-review-result" hidden></p>
+
       </section>
     </main>
   </div>

@@ -10,6 +10,8 @@
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/dashboard.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/preview.css">
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/upload.css">
@@ -70,6 +72,9 @@
                         disabled>
                     다음: 파일 미리보기
                 </button>
+                <div class="preview-actions">
+                    <a href="sales_list.jsp" class="secondary-button">취소</a>
+                </div>
             </form>
         </main>
     </div>

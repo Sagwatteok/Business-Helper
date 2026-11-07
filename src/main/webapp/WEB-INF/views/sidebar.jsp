@@ -12,7 +12,7 @@
                 대시보드
             </a>
 
-            <a href="${pageContext.request.contextPath}/sales/upload.jsp" class="nav-item ${param.activeMenu eq 'sales' ? 'is-active' : ''}">
+            <a href="${pageContext.request.contextPath}/sales/sales_list.jsp" class="nav-item ${param.activeMenu eq 'sales' ? 'is-active' : ''}">
                 <span class="nav-icon" aria-hidden="true"></span>
                 매출 데이터
             </a>

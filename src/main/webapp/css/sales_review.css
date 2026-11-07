@@ -1,0 +1,80 @@
+.sales-review-table td {
+    vertical-align: top;
+}
+
+.sales-review-value {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sales-review-value:hover {
+    background: #F0F8FC;
+}
+
+.sales-review-editor {
+    width: 100%;
+    min-width: 110px;
+    height: 38px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    background: white;
+    font: inherit;
+}
+
+.sales-review-editor[type="datetime-local"] {
+    min-width: 200px;
+}
+
+.sales-review-table td:nth-child(3) .sales-review-value,
+.sales-review-table td:nth-child(4) .sales-review-value,
+.sales-review-table input[type="number"] {
+    text-align: right;
+}
+
+.sales-review-table td:nth-child(4) .sales-review-editor {
+    font-family: "LeeSeoyun", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.sales-review-value:focus-visible,
+.sales-review-editor:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.sales-review-editor.is-invalid {
+    border-color: #E5A0A0;
+    background: #FFF2F2;
+    color: #B64040;
+}
+
+.sales-review-editor::placeholder {
+    color: var(--text-muted);
+    font-size: inherit;
+    opacity: 1;
+}
+
+.sales-review-editor[hidden],
+.sales-review-value[hidden] {
+    display: none;
+}
+
+.sales-review-error {
+    margin: 6px 0 0;
+    color: #B64040;
+    font-family: var(--default-font);
+    font-size: 11px;
+    font-weight: 400;
+}

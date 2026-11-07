@@ -5,6 +5,11 @@ const fieldLabels = {
     description: "지출 내용",
     amount: "금액"
 };
+const reviewFields = [];
+const checkButton = document.getElementById("expense-review-check");
+const resultMessage = document.getElementById("expense-review-result");
+const reviewTable = document.querySelector(".expense-review-table");
+
 
 document.querySelectorAll(".expense-review-table [data-edit]").forEach(function (cell) {
     const field = cell.dataset.edit;
@@ -58,14 +63,17 @@ document.querySelectorAll(".expense-review-table [data-edit]").forEach(function 
 
     function showValue() {
         if (!validate()) {
-            return;
+            return false;
         }
+
         cell.dataset.value = editor.value;
         display.textContent = isAmount
             ? "₩ " + amountFormatter.format(editor.valueAsNumber)
             : editor.value;
         editor.hidden = true;
         display.hidden = false;
+
+        return true;
     }
 
     display.addEventListener("click", function () {
@@ -88,6 +96,44 @@ document.querySelectorAll(".expense-review-table [data-edit]").forEach(function 
         }
     });
 
+    reviewFields.push({
+        editor: editor,
+        display: display,
+        showValue: showValue
+    });
+
     display.hidden = true;
     showValue();
+});
+
+
+checkButton.addEventListener("click", function () {
+    let firstInvalidEditor = null;
+
+    reviewFields.forEach(function (field) {
+        if (!field.showValue()) {
+            field.display.hidden = true;
+            field.editor.hidden = false;
+
+            if (firstInvalidEditor === null) {
+                firstInvalidEditor = field.editor;
+            }
+        }
+    });
+
+    resultMessage.hidden = false;
+
+    if (firstInvalidEditor !== null) {
+        resultMessage.textContent = "입력값을 확인해 주세요.";
+        firstInvalidEditor.focus();
+        return;
+    }
+
+    alert("저장되었습니다.");
+    window.location.href = "expense_list.jsp";
+});
+
+
+reviewTable.addEventListener("input", function () {
+    resultMessage.hidden = true;
 });
