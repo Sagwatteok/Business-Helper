@@ -29,7 +29,7 @@
       <section class="preview-table-card">
         <h2>지출 정보 입력</h2>
 
-        <form class="expense-form">
+        <form id="expense-form" class="expense-form">
           <p>
             <label for="expense-date">지출일</label>
             <input id="expense-date" name="expenseDate" type="date" required>
@@ -67,7 +67,7 @@
 
           <div class="preview-actions">
             <a href="expense_list.jsp" class="secondary-button">취소</a>
-            <button type="button" class="primary-button" disabled>지출 등록</button>
+            <button type="submit" class="primary-button">지출 등록</button>
           </div>
         </form>
       </section>
@@ -75,5 +75,6 @@
   </div>
 </div>
 
+<script src="${pageContext.request.contextPath}/js/expense_form.js"></script>
 </body>
 </html>
