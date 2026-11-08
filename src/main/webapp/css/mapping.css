@@ -8,7 +8,7 @@
 
 .mapping-intro h2 {
     margin-bottom: 8px;
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .mapping-intro p {
@@ -46,7 +46,7 @@
 
 .mapping-label > .mapping-field-label,
 .mapping-label > strong {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 550;
     margin: 0 7px;
 }
@@ -55,14 +55,14 @@
     width: 100%;
     margin: 4px 7px 0;
     color: var(--text-muted);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .required-badge,
 .optional-badge {
     padding: 3px 7px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .required-badge {

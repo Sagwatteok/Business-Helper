@@ -13,7 +13,7 @@
     padding: 0 16px;
     border: 1px solid transparent;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     white-space: nowrap;
     transition: background-color 0.18s ease, border-color 0.18s ease;
@@ -68,13 +68,13 @@
 
 .sales-form-card > h2 {
     margin-bottom: 6px;
-    font-size: 22px;
+    font-size: 24px;
     letter-spacing: -0.02em;
 }
 
 .sales-form-card > p {
     color: var(--text-muted);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .sales-form {
@@ -92,7 +92,7 @@
     display: block;
     margin-bottom: 8px;
     color: var(--text);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -135,7 +135,7 @@
     height: 44px;
     padding: 0 18px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -151,7 +151,7 @@
 
 .sales-edit-card h2 {
     margin-bottom: 7px;
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .sales-edit-table {
@@ -186,13 +186,13 @@
 
 .sales-edit-table thead th {
     padding: 12px 8px;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .sales-edit-table tbody td {
     height: 58px;
     padding: 10px 8px;
-    font-size: 13px;
+    font-size: 14px;
     vertical-align: middle;
 }
 
@@ -216,7 +216,7 @@
     background: white;
     color: #B64040;
     font: inherit;
-    font-size: 12px;
+    font-size: 13px;
     white-space: nowrap;
 }
 
@@ -235,7 +235,7 @@
     height: 44px;
     padding: 0 18px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -286,7 +286,7 @@
 }
 
 .sales-edit-editor[type="datetime-local"] {
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .sales-edit-editor:focus,
