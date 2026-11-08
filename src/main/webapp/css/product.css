@@ -156,6 +156,10 @@
     box-shadow: 0 12px 32px rgba(36, 68, 95, 0.05);
 }
 
+.product-list-card:has(.product-edit-table) .table-scroll {
+    margin-top: 30px;
+}
+
 #product-list-title {
     margin-bottom: 7px;
     font-size: 22px;
@@ -191,4 +195,189 @@
 
 .product-table td.product-status-inactive {
     color: var(--text-muted);
+}
+
+.product-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-edit-table {
+    table-layout: fixed;
+    min-width: 0;
+}
+
+.product-edit-table thead th {
+    padding: 12px 8px;
+    font-size: 13px;
+}
+
+.product-edit-table th:nth-child(1) {
+    width: 22%;
+}
+
+.product-edit-table th:nth-child(2) {
+    width: 12%;
+}
+
+.product-edit-table th:nth-child(3),
+.product-edit-table th:nth-child(4),
+.product-edit-table th:nth-child(5) {
+    width: 15%;
+}
+
+.product-edit-table th:nth-child(6) {
+    width: 13%;
+}
+
+.product-edit-table th:nth-child(7) {
+    width: 8%;
+}
+
+.product-edit-table tbody th,
+.product-edit-table tbody td {
+    height: 58px;
+    padding: 10px 8px;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.product-edit-table td:nth-child(3),
+.product-edit-table td:nth-child(4),
+.product-edit-table td:nth-child(5) {
+    font-size: 12px;
+}
+
+.product-edit-table tbody th {
+    background: transparent;
+}
+
+.product-edit-table th:nth-child(6),
+.product-edit-table th:nth-child(7),
+.product-edit-table td:nth-child(6),
+.product-edit-table td:nth-child(7) {
+    text-align: center;
+}
+
+.product-edit-table td:nth-child(6) .product-edit-value {
+    text-align: center;
+}
+
+.product-edit-table input[type="number"] {
+    text-align: right;
+}
+
+.product-edit-value {
+    display: block;
+    width: 100%;
+    min-height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.product-edit-value:hover {
+    background: #F0F8FC;
+}
+
+.product-edit-table td:nth-child(3) .product-edit-value,
+.product-edit-table td:nth-child(4) .product-edit-value {
+    text-align: right;
+}
+
+.product-edit-editor {
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    font: inherit;
+}
+
+.product-edit-editor:focus,
+.product-edit-value:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.product-edit-editor.is-invalid {
+    border-color: #E5A0A0;
+    background: #FFF2F2;
+}
+
+.product-edit-editor[hidden],
+.product-edit-value[hidden] {
+    display: none;
+}
+
+.product-edit-error {
+    margin: 6px 0 0;
+    color: #B64040;
+    font-family: var(--default-font);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.product-edit-table td:nth-child(6) {
+    color: var(--positive);
+    font-weight: 700;
+}
+
+.product-edit-table td.product-status-inactive {
+    color: var(--text-muted);
+}
+
+.product-edit-table td:last-child {
+    color: var(--text);
+    font-weight: 400;
+}
+
+.product-delete-button {
+    min-height: 34px;
+    padding: 6px 8px;
+    border: 1px solid #E5A0A0;
+    border-radius: 8px;
+    background: white;
+    color: #B64040;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.product-delete-button:hover {
+    background: #FFF2F2;
+}
+
+.product-edit-actions {
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.product-edit-actions .secondary-button,
+.product-edit-actions .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 104px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.product-edit-actions .primary-button {
+    border: 1px solid var(--primary);
+    cursor: pointer;
 }

@@ -34,7 +34,10 @@
             </p>
           </div>
 
-          <a href="product_form.jsp" class="primary-button">상품 등록</a>
+          <div class="product-header-actions">
+            <a href="product_form.jsp" class="primary-button">상품 등록</a>
+            <a href="product_edit.jsp" class="secondary-button">수정</a>
+          </div>
         </div>
 
         <div class="table-scroll">
