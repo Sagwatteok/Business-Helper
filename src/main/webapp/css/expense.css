@@ -15,6 +15,37 @@
     gap: 10px;
 }
 
+.expense-header-actions .expense-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.expense-header-actions .expense-action-button:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 3px;
+}
+
+.expense-header-actions .expense-edit-button {
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.expense-header-actions .expense-edit-button:hover {
+    background: #F0F8FC;
+    color: var(--text);
+}
+
 .preview-table-card:has(.expense-form) {
     max-width: 860px;
     margin-inline: auto;
@@ -288,4 +319,124 @@
     font-family: var(--default-font);
     font-size: 11px;
     font-weight: 400;
+}
+
+.expense-edit-card {
+    padding: 30px 32px;
+    box-shadow: 0 12px 32px rgba(36, 68, 95, 0.05);
+}
+
+.expense-edit-card h2 {
+    margin-bottom: 7px;
+    font-size: 22px;
+}
+
+.expense-edit-table {
+    table-layout: fixed;
+    min-width: 0;
+}
+
+.expense-edit-table th:nth-child(1) {
+    width: 23%;
+}
+
+.expense-edit-table th:nth-child(2) {
+    width: 18%;
+}
+
+.expense-edit-table th:nth-child(3) {
+    width: 29%;
+}
+
+.expense-edit-table th:nth-child(4) {
+    width: 20%;
+    text-align: right;
+}
+
+.expense-edit-table th:nth-child(5) {
+    width: 10%;
+    text-align: center;
+}
+
+.expense-edit-table thead th {
+    padding: 12px 8px;
+    font-size: 13px;
+}
+
+.expense-edit-table tbody td {
+    height: 58px;
+    padding: 10px 8px;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.expense-edit-table td.expense-amount {
+    font-size: 12px;
+}
+
+.expense-edit-table td:last-child {
+    text-align: center;
+}
+
+.expense-edit-table tbody tr:last-child td {
+    border-bottom: 1px solid #EDF3F7;
+}
+
+.expense-edit-table .expense-review-editor {
+    min-width: 0;
+    padding: 6px;
+}
+
+.expense-edit-table input[type="number"] {
+    text-align: right;
+}
+
+.expense-delete-button {
+    min-height: 34px;
+    padding: 6px 8px;
+    border: 1px solid #E5A0A0;
+    border-radius: 8px;
+    background: white;
+    color: #B64040;
+    font: inherit;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.expense-delete-button:not(:disabled):hover {
+    background: #FFF2F2;
+}
+
+.expense-edit-actions {
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.expense-edit-actions .secondary-button,
+.expense-edit-actions .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 104px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.expense-edit-actions .primary-button {
+    border: 1px solid var(--primary);
+}
+
+.expense-edit-actions button:disabled,
+.expense-delete-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.expense-edit-actions button:not(:disabled),
+.expense-delete-button:not(:disabled) {
+    cursor: pointer;
 }

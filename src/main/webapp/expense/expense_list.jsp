@@ -34,8 +34,10 @@
                     </div>
 
                     <div class="expense-header-actions">
-                        <a href="expense_upload.jsp" class="secondary-button">CSV로 가져오기</a>
-                        <a href="expense_form.jsp" class="primary-button">+ 지출 추가</a>
+                        <a href="expense_upload.jsp"
+                           class="secondary-button">CSV로 가져오기</a>
+                        <a href="expense_form.jsp" class="primary-button expense-action-button">+ 지출 추가</a>
+                        <a href="expense_edit.jsp" class="expense-action-button expense-edit-button">수정</a>
                     </div>
                 </div>
 
