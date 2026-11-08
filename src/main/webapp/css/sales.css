@@ -4,6 +4,37 @@
     gap: 10px;
 }
 
+.sales-header-actions .sales-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.sales-header-actions .sales-action-button:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 3px;
+}
+
+.sales-header-actions .sales-edit-button {
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.sales-header-actions .sales-edit-button:hover {
+    background: #F0F8FC;
+    color: var(--text);
+}
+
 .sales-table th:nth-child(3),
 .sales-table th:nth-child(4),
 .sales-table td:nth-child(3),
@@ -111,4 +142,182 @@
 .sales-form .primary-button {
     border: 1px solid var(--primary);
     cursor: pointer;
+}
+
+.sales-edit-card {
+    padding: 30px 32px;
+    box-shadow: 0 12px 32px rgba(36, 68, 95, 0.05);
+}
+
+.sales-edit-card h2 {
+    margin-bottom: 7px;
+    font-size: 22px;
+}
+
+.sales-edit-table {
+    table-layout: fixed;
+    min-width: 0;
+}
+
+.sales-edit-table th:nth-child(1) {
+    width: 25%;
+}
+
+.sales-edit-table th:nth-child(2) {
+    width: 20%;
+}
+
+.sales-edit-table th:nth-child(3) {
+    width: 9%;
+}
+
+.sales-edit-table th:nth-child(4) {
+    width: 18%;
+}
+
+.sales-edit-table th:nth-child(5) {
+    width: 18%;
+}
+
+.sales-edit-table th:nth-child(6) {
+    width: 10%;
+    text-align: center;
+}
+
+.sales-edit-table thead th {
+    padding: 12px 8px;
+    font-size: 13px;
+}
+
+.sales-edit-table tbody td {
+    height: 58px;
+    padding: 10px 8px;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.sales-edit-table td:nth-child(4) {
+    font-size: 12px;
+}
+
+.sales-edit-table td:last-child {
+    text-align: center;
+}
+
+.sales-edit-table tbody tr:last-child td {
+    border-bottom: 1px solid #EDF3F7;
+}
+
+.sales-delete-button {
+    min-height: 34px;
+    padding: 6px 8px;
+    border: 1px solid #E5A0A0;
+    border-radius: 8px;
+    background: white;
+    color: #B64040;
+    font: inherit;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.sales-edit-actions {
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.sales-edit-actions .secondary-button,
+.sales-edit-actions .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 104px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.sales-edit-actions .primary-button {
+    border: 1px solid var(--primary);
+}
+
+.sales-edit-actions button:disabled,
+.sales-delete-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.sales-edit-value {
+    display: block;
+    width: 100%;
+    min-height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sales-edit-value:hover {
+    background: #F0F8FC;
+}
+
+.sales-edit-editor {
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    font: inherit;
+}
+
+.sales-edit-table td:nth-child(3) .sales-edit-value,
+.sales-edit-table td:nth-child(4) .sales-edit-value,
+.sales-edit-editor[type="number"] {
+    text-align: right;
+}
+
+.sales-edit-editor[type="datetime-local"] {
+    font-size: 12px;
+}
+
+.sales-edit-editor:focus,
+.sales-edit-value:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.sales-edit-editor.is-invalid {
+    border-color: #E5A0A0;
+    background: #FFF2F2;
+}
+
+.sales-edit-editor[hidden],
+.sales-edit-value[hidden] {
+    display: none;
+}
+
+.sales-edit-error {
+    margin: 6px 0 0;
+    color: #B64040;
+    font-family: var(--default-font);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.sales-delete-button:not(:disabled),
+.sales-edit-actions .primary-button:not(:disabled) {
+    cursor: pointer;
+}
+
+.sales-delete-button:not(:disabled):hover {
+    background: #FFF2F2;
 }

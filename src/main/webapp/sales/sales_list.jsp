@@ -27,6 +27,7 @@
                     <div class="sales-header-actions">
                         <a href="upload.jsp" class="secondary-button">CSV로 가져오기</a>
                         <a href="sales_form.jsp" class="primary-button">+ 매출 추가</a>
+                        <a href="sales_edit.jsp" class="sales-action-button sales-edit-button">수정</a>
                     </div>
                 </div>
                 <div class="sales-summary">
