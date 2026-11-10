@@ -35,7 +35,9 @@ function updateSalesTotal() {
 salesTable.querySelectorAll("[data-field]").forEach(function (cell) {
     const field = cell.dataset.field;
     const isNumber = field === "quantity" || field === "amount";
-    const initialValue = cell.dataset.value ?? cell.textContent.trim();
+    const initialValue = cell.dataset.value != null
+        ? cell.dataset.value
+        : cell.textContent.trim();
 
     const display = document.createElement("button");
     const editor = document.createElement("input");

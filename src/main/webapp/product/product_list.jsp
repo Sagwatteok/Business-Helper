@@ -1,5 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${requestScope.products == null}">
+  <jsp:forward page="/product/list" />
+</c:if>
+
+<fmt:setLocale value="ko_KR" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -53,30 +62,39 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <th scope="row">아메리카노</th>
-              <td>커피</td>
-              <td>₩ 4,500</td>
-              <td>₩ 1,200</td>
-              <td>₩ 3,300</td>
-              <td>판매 중</td>
-            </tr>
-            <tr>
-              <th scope="row">카페라떼</th>
-              <td>커피</td>
-              <td>₩ 5,500</td>
-              <td>₩ 1,800</td>
-              <td>₩ 3,700</td>
-              <td>판매 중</td>
-            </tr>
-            <tr>
-              <th scope="row">바닐라라떼</th>
-              <td>커피</td>
-              <td>₩ 6,000</td>
-              <td>₩ 2,100</td>
-              <td>₩ 3,900</td>
-              <td class="product-status-inactive">판매 중지</td>
-            </tr>
+            <c:forEach var="product" items="${requestScope.products}">
+              <tr>
+                <th scope="row">
+                  <c:out value="${product.productName}" />
+                </th>
+                <td>
+                  <c:out value="${product.category}" />
+                </td>
+                <td>
+                  ₩ <fmt:formatNumber value="${product.salePrice}" pattern="#,##0" />
+                </td>
+                <td>
+                  ₩ <fmt:formatNumber value="${product.estimatedCost}" pattern="#,##0" />
+                </td>
+                <td>
+                  ₩ <fmt:formatNumber value="${product.estimatedMargin}" pattern="#,##0" />
+                </td>
+                <td class="${product.saleStatus == 'inactive' ? 'product-status-inactive' : ''}">
+                  <c:if test="${product.saleStatus == 'active'}">
+                    판매 중
+                  </c:if>
+                  <c:if test="${product.saleStatus == 'inactive'}">
+                    판매 중지
+                  </c:if>
+                </td>
+              </tr>
+            </c:forEach>
+
+            <c:if test="${empty requestScope.products}">
+              <tr>
+                <td colspan="6">등록된 상품이 없습니다.</td>
+              </tr>
+            </c:if>
             </tbody>
           </table>
         </div>

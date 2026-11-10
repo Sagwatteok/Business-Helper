@@ -67,7 +67,9 @@ reviewTable.querySelectorAll("[data-edit]").forEach(function (cell) {
 
     editor.value = field === "amount" && unitPriceBasis
         ? cell.dataset.unitPrice
-        : cell.dataset.value ?? cell.textContent.trim();
+        : (cell.dataset.value != null
+            ? cell.dataset.value
+            : cell.textContent.trim());
     cell.replaceChildren(display, editor, error);
 
     function validate() {

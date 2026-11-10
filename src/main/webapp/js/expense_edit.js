@@ -33,7 +33,9 @@ function updateExpenseTotal() {
 
 expenseTable.querySelectorAll("[data-field]").forEach(function (cell) {
     const field = cell.dataset.field;
-    const initialValue = cell.dataset.value ?? cell.textContent.trim();
+    const initialValue = cell.dataset.value != null
+        ? cell.dataset.value
+        : cell.textContent.trim();
 
     const display = document.createElement("button");
     const editor = document.createElement(
