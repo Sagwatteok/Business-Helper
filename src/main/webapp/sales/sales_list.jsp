@@ -7,7 +7,6 @@
     <title>BizMate | 매출 데이터</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/preview.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sales.css">
 </head>
 <body>

@@ -12,9 +12,6 @@
           href="${pageContext.request.contextPath}/css/dashboard.css">
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/upload.css">
-
-    <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/preview.css">
 
     <link rel="stylesheet"

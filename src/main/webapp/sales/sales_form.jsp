@@ -7,7 +7,6 @@
     <title>BizMate | 매출 추가</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/preview.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sales.css">
 </head>
 <body>

@@ -161,7 +161,6 @@ h1 {
     max-width: 1440px;
     padding: 32px 40px 48px;
     margin-inline: auto;
-    padding: 32px 40px 48px;
 }
 
 .welcome-section {
@@ -202,8 +201,7 @@ h1 {
     gap: 16px;
 }
 
-.metric-card,
-.dashboard-placeholder {
+.metric-card {
     border: 1px solid var(--border);
     border-radius: 14px;
     background: var(--surface);
@@ -303,12 +301,6 @@ h1 {
     background: #FAFCFD;
 }
 
-.chart-area p {
-    margin-bottom: 0;
-    color: var(--text-muted);
-    font-size: 15px;
-}
-
 .top-product-card {
     margin-top: 24px;
     padding: 24px;
@@ -366,6 +358,8 @@ h1 {
 
 .sales-amount {
     font-family: var(--default-font);
+    color: var(--text);
+    font-weight: 700;
 }
 
 .top-product-table .sales-amount {
@@ -387,11 +381,6 @@ h1 {
 .rank-first {
     background: #EAF4FA;
     color: var(--primary-dark);
-}
-
-.sales-amount {
-    color: var(--text);
-    font-weight: 700;
 }
 
 .ai-insight-card {

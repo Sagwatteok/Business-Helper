@@ -27,7 +27,7 @@
       <section class="preview-table-card product-form-card">
         <h2 id="product-form-title">상품 정보 입력</h2>
 
-        <form>
+        <form id="product-form">
           <p>
             <label for="product-name">상품명</label><br>
             <input id="product-name" name="productName" type="text" required>
@@ -74,7 +74,7 @@
 
           <div class="preview-actions">
             <a href="product_list.jsp" class="secondary-button">취소</a>
-            <button type="button" disabled>상품 등록</button>
+            <button type="submit">상품 등록</button>
           </div>
         </form>
       </section>
