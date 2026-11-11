@@ -79,9 +79,17 @@
             </select>
           </p>
 
+          <div id="margin-warning" class="product-margin-warning" hidden="hidden">
+            <p id="margin-warning-message"></p>
+            <div class="product-margin-warning-actions">
+              <button id="confirm-negative-margin" type="button">그래도 등록</button>
+              <button id="cancel-negative-margin" type="button">다시 입력</button>
+            </div>
+          </div>
+
           <div class="preview-actions">
             <a href="product_list.jsp" class="secondary-button">취소</a>
-            <button type="submit">상품 등록</button>
+            <button id="product-submit" type="submit">상품 등록</button>
           </div>
         </form>
       </section>
