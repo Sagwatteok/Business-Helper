@@ -33,13 +33,9 @@ productNameInput.addEventListener("input", validateProductName);
 validateProductName();
 
 productForm.addEventListener("submit", function (event) {
-    event.preventDefault();
     validateProductName();
 
     if (!productForm.reportValidity()) {
-        return;
+        event.preventDefault();
     }
-
-    alert("저장되었습니다.");
-    window.location.href = "product_list.jsp";
 });

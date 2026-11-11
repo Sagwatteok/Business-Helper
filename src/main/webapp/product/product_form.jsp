@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +28,13 @@
       <section class="preview-table-card product-form-card">
         <h2 id="product-form-title">상품 정보 입력</h2>
 
-        <form id="product-form">
+        <c:if test="${not empty requestScope.errorMessage}">
+          <p><c:out value="${requestScope.errorMessage}" /></p>
+        </c:if>
+
+        <form id="product-form"
+              action="${pageContext.request.contextPath}/product/list"
+              method="post">
           <p>
             <label for="product-name">상품명</label><br>
             <input id="product-name" name="productName" type="text" required>
