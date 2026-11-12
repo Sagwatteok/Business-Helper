@@ -12,7 +12,7 @@
 <body>
 <div class="app-layout">
     <!-- 왼쪽 공통 메뉴 -->
-    <jsp:include page="/WEB-INF/views/sidebar.jsp">
+    <jsp:include page="/views/sidebar.jsp">
         <jsp:param name="activeMenu" value="dashboard" />
     </jsp:include>
 

@@ -33,6 +33,6 @@ public class ProductEditServlet extends HttpServlet {
         
         //상품 목록을 담은 요청을 상품 수정 JSP로 전달
         request.setAttribute("products", products );
-        request.getRequestDispatcher("/WEB-INF/views/product/product_edit.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/product/product_edit.jsp").forward(request, response);
     }
 }

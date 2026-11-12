@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 기존 화면 주소를 유지하면서 WEB-INF 안의 JSP로 전달
+// 기존 화면 주소를 유지하면서 views 안의 JSP로 전달
 @WebServlet(urlPatterns = {
     "/dashboard.jsp",
     "/product/product_list.jsp",
@@ -30,9 +30,10 @@ import javax.servlet.http.HttpServletResponse;
     "/expense/expense_list.jsp"
 })
 public class ViewServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
-    @Override
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String viewPath = request.getServletPath();
@@ -42,7 +43,7 @@ public class ViewServlet extends HttpServlet {
             return;
         }
 
-        request.getRequestDispatcher("/WEB-INF/views" + viewPath)
+        request.getRequestDispatcher("/views" + viewPath)
                 .forward(request, response);
     }
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="app-layout">
-    <jsp:include page="/WEB-INF/views/sidebar.jsp">
+    <jsp:include page="/views/sidebar.jsp">
         <jsp:param name="activeMenu" value="sales" />
     </jsp:include>
     <div class="page-area">
