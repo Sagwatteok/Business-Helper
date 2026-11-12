@@ -43,6 +43,12 @@
                     <a href="product_list.jsp" class="secondary-button">목록으로</a>
                 </div>
 
+                <c:if test="${not empty requestScope.errorMessage}"> <!-- 전달한 오류 메시지가 있을 때만 --> 
+                    <p><c:out value="${requestScope.errorMessage}" /></p>
+                </c:if>
+
+                <form id="product-edit-form" action="${pageContext.request.contextPath}/product/edit" method="post">
+
                 <div class="table-scroll">
                     <table class="preview-table product-table product-edit-table">
                         <thead>
@@ -81,6 +87,7 @@
                                 </td>
                                 
                                 <td data-field="status"
+                                	<%-- 판매 중지라면 흐린 글자색 적용 --%>
                                     class="${product.saleStatus == 'inactive' ? 'product-status-inactive' : ''}">
                                     <c:if test="${product.saleStatus == 'active'}">
                                         판매 중
@@ -106,6 +113,7 @@
                     <button type="button" id="product-edit-save" class="primary-button">저장</button>
                 </div>
                 
+                </form>
             </section>
         </main>
     </div>

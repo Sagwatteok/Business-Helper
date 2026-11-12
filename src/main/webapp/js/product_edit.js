@@ -1,6 +1,9 @@
 const productTable = document.querySelector(".product-edit-table");
 const emptyMessage = document.getElementById("product-empty-message");
 const saveButton = document.getElementById("product-edit-save");
+const productEditForm = document.getElementById("product-edit-form");
+const submittedValues = document.createElement("div");
+productEditForm.appendChild(submittedValues); //서버로 보낼 숨김 입력 요소들을 담는 공간
 const editableFields = [];
 const moneyFormatter = new Intl.NumberFormat("ko-KR"); //금액 콘마로 표기
 
@@ -171,6 +174,16 @@ productTable.querySelectorAll(".product-delete-button").forEach(function (button
     });
 });
 
+function addEditValue(name, value) {
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+
+    submittedValues.appendChild(input);
+}
+
 saveButton.addEventListener("click", function () {
     let firstInvalidEditor = null;
 
@@ -194,6 +207,25 @@ saveButton.addEventListener("click", function () {
         return;
     }
 
-    alert("저장되었습니다.");
-    window.location.href = "product_list.jsp";
+	//데이터 수정
+	submittedValues.replaceChildren();
+
+	productTable.querySelectorAll("tbody tr").forEach(function (row) {
+	    const productId = row.dataset.productId;
+	    const productName = row.querySelector('[data-field="name"]').dataset.value;
+	    const category = row.querySelector('[data-field="category"]').dataset.value;
+	    const salePrice = row.querySelector('[data-field="price"]').dataset.value;
+	    const estimatedCost = row.querySelector('[data-field="cost"]').dataset.value;
+	    const statusText = row.querySelector('[data-field="status"]').dataset.value;
+	    const saleStatus = statusText === "판매 중" ? "active" : "inactive";
+
+	    addEditValue("productId", productId);
+	    addEditValue("productName", productName);
+	    addEditValue("category", category);
+	    addEditValue("salePrice", salePrice);
+	    addEditValue("estimatedCost", estimatedCost);
+	    addEditValue("saleStatus", saleStatus);
+	});
+
+	productEditForm.requestSubmit();
 });
