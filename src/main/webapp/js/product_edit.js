@@ -50,7 +50,7 @@ productTable.querySelectorAll("[data-field]").forEach(function (cell) {
 
     if (isSelect) {
         const options = field === "category"
-            ? ["커피", "음료", "디저트", "식사", "주류", "기타"]
+            ? ["커피", "음료", "디저트", "식사", "주류","굿즈", "기타"]
             : ["판매 중", "판매 중지"];
 
         options.forEach(function (option) {
@@ -146,6 +146,8 @@ productTable.querySelectorAll("[data-field]").forEach(function (cell) {
 });
 
 productTable.querySelectorAll("tbody tr").forEach(updateMargin);
+
+emptyMessage.hidden = productTable.querySelectorAll("tbody tr").length > 0;
 
 productTable.addEventListener("input", function (event) {
     updateMargin(event.target.closest("tr"));

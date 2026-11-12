@@ -1,5 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${requestScope.products == null}">
+    <jsp:forward page="/product/edit" />
+</c:if>
+
+<fmt:setLocale value="ko_KR" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,7 +37,7 @@
                 <div class="card-header">
                     <div>
                         <h2 id="product-list-title">상품 목록</h2>
-                        <p>샘플 데이터입니다. 수정할 값을 클릭하세요. 예상 마진은 자동 계산됩니다.</p>
+                        <p>수정할 값을 클릭하세요. 예상 마진은 자동 계산됩니다.</p>
                     </div>
 
                     <a href="product_list.jsp" class="secondary-button">목록으로</a>
@@ -47,40 +56,45 @@
                             <th scope="col">삭제</th>
                         </tr>
                         </thead>
+                        
                         <tbody>
-                        <tr>
-                            <th scope="row" data-field="name">아메리카노</th>
-                            <td data-field="category">커피</td>
-                            <td data-field="price" data-value="4500">₩ 4,500</td>
-                            <td data-field="cost" data-value="1200">₩ 1,200</td>
-                            <td class="product-edit-margin">₩ 3,300</td>
-                            <td data-field="status">판매 중</td>
-                            <td>
-                                <button type="button" class="product-delete-button">삭제</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" data-field="name">카페라떼</th>
-                            <td data-field="category">커피</td>
-                            <td data-field="price" data-value="5500">₩ 5,500</td>
-                            <td data-field="cost" data-value="1800">₩ 1,800</td>
-                            <td class="product-edit-margin">₩ 3,700</td>
-                            <td data-field="status">판매 중</td>
-                            <td>
-                                <button type="button" class="product-delete-button">삭제</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" data-field="name">바닐라라떼</th>
-                            <td data-field="category">커피</td>
-                            <td data-field="price" data-value="6000">₩ 6,000</td>
-                            <td data-field="cost" data-value="2100">₩ 2,100</td>
-                            <td class="product-edit-margin">₩ 3,900</td>
-                            <td data-field="status" class="product-status-inactive">판매 중지</td>
-                            <td>
-                                <button type="button" class="product-delete-button">삭제</button>
-                            </td>
-                        </tr>
+                        <c:forEach var="product" items="${requestScope.products}">
+                            <tr data-product-id="${product.productId}">
+                                <th scope="row" data-field="name">
+                                    <c:out value="${product.productName}" />
+                                </th>
+                                
+                                <td data-field="category">
+                                    <c:out value="${product.category}" />
+                                </td>
+                                
+                                <td data-field="price" data-value="${product.salePrice}">
+                                    ₩ <fmt:formatNumber value="${product.salePrice}" pattern="#,##0" />
+                                </td>
+                                
+                                <td data-field="cost" data-value="${product.estimatedCost}">
+                                    ₩ <fmt:formatNumber value="${product.estimatedCost}" pattern="#,##0" />
+                                </td>
+                                
+                                <td class="product-edit-margin">
+                                    ₩ <fmt:formatNumber value="${product.estimatedMargin}" pattern="#,##0" />
+                                </td>
+                                
+                                <td data-field="status"
+                                    class="${product.saleStatus == 'inactive' ? 'product-status-inactive' : ''}">
+                                    <c:if test="${product.saleStatus == 'active'}">
+                                        판매 중
+                                    </c:if>
+                                    <c:if test="${product.saleStatus == 'inactive'}">
+                                        판매 중지
+                                    </c:if>
+                                </td>
+                                
+                                <td>
+                                    <button type="button" class="product-delete-button">삭제</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
 
@@ -91,6 +105,7 @@
                     <a href="product_list.jsp" class="secondary-button">취소</a>
                     <button type="button" id="product-edit-save" class="primary-button">저장</button>
                 </div>
+                
             </section>
         </main>
     </div>
