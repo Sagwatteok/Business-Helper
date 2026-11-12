@@ -42,7 +42,7 @@ public class ProductListServlet extends HttpServlet {
 
         request.setAttribute("products", getProducts(session));
 
-        request.getRequestDispatcher("/product/product_list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/product/product_list.jsp").forward(request, response);
     }
 
 
@@ -92,6 +92,6 @@ public class ProductListServlet extends HttpServlet {
     //에러 처리 메서드
     private void error(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
-        request.getRequestDispatcher("/product/product_form.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/product/product_form.jsp").forward(request, response);
     }
 }
