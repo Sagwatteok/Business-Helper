@@ -17,7 +17,9 @@ import com.bizmate.model.Product;
 @WebServlet("/product/list")
 public class ProductListServlet extends HttpServlet {
 
-    @SuppressWarnings("unchecked") //경고 숨김
+	private static final long serialVersionUID = 1L;
+
+	@SuppressWarnings("unchecked")
     private List<Product> getProducts(HttpSession session) {
         List<Product> products = (List<Product>) session.getAttribute("products");
 

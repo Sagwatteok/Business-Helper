@@ -1,12 +1,15 @@
 package com.bizmate.model;
 
+import java.util.UUID;
+
 public class Product {
     private String productName;
     private String category;
     private long salePrice;
     private long estimatedCost;
     private String saleStatus;
-
+    private String productId = UUID.randomUUID().toString(); //상품을 구별할 ID
+    
     public Product() {
     }
 
@@ -38,7 +41,11 @@ public class Product {
 	public long getSalePrice() {
 		return salePrice;
 	}
-
+	
+    public String getProductId() {
+        return productId;
+    }
+    
 	public void setSalePrice(long salePrice) {
 		this.salePrice = salePrice;
 	}
