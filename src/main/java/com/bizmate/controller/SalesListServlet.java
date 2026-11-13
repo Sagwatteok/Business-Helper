@@ -2,6 +2,7 @@ package com.bizmate.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +65,83 @@ public class SalesListServlet extends HttpServlet {
         request.getRequestDispatcher("/views/sales/sales_list.jsp")
                 .forward(request, response);
     }
+    
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        String saleDateValue = request.getParameter("saleDate");
+        String productName = request.getParameter("productName");
+        String quantityValue = request.getParameter("quantity");
+        String amountValue = request.getParameter("amount");
+        String orderNo = request.getParameter("orderNo");
+        String orderChannel = request.getParameter("orderChannel");
+
+        if (productName == null || productName.trim().isEmpty()) {
+            showFormError(request, response, "상품명을 입력해 주세요.");
+            return;
+        }
+
+        if (saleDateValue == null || saleDateValue.trim().isEmpty()) {
+            showFormError(request, response, "판매일시를 입력해 주세요.");
+            return;
+        }
+
+        LocalDateTime saleDate;
+
+        try {
+            saleDate = LocalDateTime.parse(saleDateValue.trim());
+        } catch (DateTimeParseException e) {
+            showFormError(request, response, "판매일시를 올바르게 입력해 주세요.");
+            return;
+        }
+
+        int quantity;
+        long amount;
+
+        try {
+            quantity = Integer.parseInt(quantityValue);
+            amount = Long.parseLong(amountValue);
+
+            if (quantity < 1 || amount < 1) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            showFormError(request, response, "수량과 품목 합계는 1 이상의 정수로 입력해 주세요.");
+            return;
+        }
+
+        orderNo = orderNo == null ? "" : orderNo.trim();
+        orderChannel = orderChannel == null ? "" : orderChannel.trim();
+
+        HttpSession session = request.getSession();
+        List<Sale> sales = getSales(session);
+
+        try {
+            long total = amount;
+
+            for (Sale sale : sales) {
+                total = Math.addExact(total, sale.getAmount());
+            }
+        } catch (ArithmeticException e) {
+            showFormError(request, response, "누적 매출 금액이 처리 가능한 범위를 초과합니다.");
+            return;
+        }
+
+        Sale sale = new Sale(
+                saleDate, productName.trim(), quantity,
+                amount, orderNo, orderChannel);
+
+        sales.add(sale);
+
+        response.sendRedirect(request.getContextPath() + "/sales/list");
+    }
+
+    private void showFormError(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
+        request.setAttribute("errorMessage", message);
+        request.getRequestDispatcher("/views/sales/sales_form.jsp").forward(request, response);
+    }
+    
 }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,8 +20,16 @@
         <main class="main-content preview-main">
             <section class="preview-table-card sales-form-card">
                 <h2>매출 정보 입력</h2>
-                <p>샘플 등록 화면입니다. 금액에는 해당 상품 행의 품목 합계를 입력하세요.</p>
-                <form id="sales-form" class="sales-form">
+                <p>금액에는 해당 상품 행의 품목 합계를 입력하세요.</p>
+
+                <c:if test="${not empty requestScope.errorMessage}">
+                    <p><c:out value="${requestScope.errorMessage}" /></p>
+                </c:if>
+                
+                      <form id="sales-form" class="sales-form"
+                      action="${pageContext.request.contextPath}/sales/list"
+                      method="post">
+                      
                     <p>
                         <label for="sales-date">판매일자</label>
                         <input id="sales-date" name="saleDate" type="datetime-local" required>

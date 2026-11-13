@@ -11,13 +11,9 @@ productInput.addEventListener("input", validateProduct);
 validateProduct();
 
 salesForm.addEventListener("submit", function (event) {
-    event.preventDefault();
     validateProduct();
 
     if (!salesForm.reportValidity()) {
-        return;
+        event.preventDefault();
     }
-
-    alert("저장되었습니다.");
-    window.location.href = "sales_list.jsp";
 });
