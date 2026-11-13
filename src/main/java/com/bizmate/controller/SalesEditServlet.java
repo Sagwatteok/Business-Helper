@@ -62,12 +62,13 @@ public class SalesEditServlet extends HttpServlet {
 
         List<Sale> sales = (List<Sale>) session.getAttribute("sales");
 
-        String[] saleIds = request.getParameterValues("saleId");
-        String[] saleDates = request.getParameterValues("saleDate");
-        String[] productNames = request.getParameterValues("productName");
-        String[] quantities = request.getParameterValues("quantity");
-        String[] amounts = request.getParameterValues("amount");
-        String[] orderChannels = request.getParameterValues("orderChannel");
+        String[] saleIds = getValues(request, "saleId");
+        String[] saleDates = getValues(request, "saleDate");
+        String[] productNames = getValues(request, "productName");
+        String[] quantities = getValues(request, "quantity");
+        String[] amounts = getValues(request, "amount");
+        String[] orderChannels = getValues(request, "orderChannel");
+        String[] deletedSaleIds = getValues(request, "deletedSaleId");
 
         if (saleIds == null || saleDates == null || productNames == null
                 || quantities == null || amounts == null
@@ -88,6 +89,7 @@ public class SalesEditServlet extends HttpServlet {
         }
 
         List<Sale> targets = new ArrayList<>();
+        List<Sale> deleteTargets = new ArrayList<>();
         Set<String> checkedIds = new HashSet<>();
 
         for (int i = 0; i < count; i++) {
@@ -113,6 +115,23 @@ public class SalesEditServlet extends HttpServlet {
             targets.add(target);
         }
 
+        //합계 검사 전에 삭제 대상 검사
+        for (String saleId : deletedSaleIds) {
+            if (!checkedIds.add(saleId)) {
+                showEditError(request, response, "수정 또는 삭제 대상 매출 ID가 중복되었습니다.");
+                return;
+            }
+
+            Sale target = findSale(sales, saleId);
+
+            if (target == null) {
+                showEditError(request, response, "삭제할 매출이 없습니다. 수정 화면을 다시 열어 주세요.");
+                return;
+            }
+
+            deleteTargets.add(target);
+        }
+        
         try {
             long total = 0;
 
@@ -140,6 +159,8 @@ public class SalesEditServlet extends HttpServlet {
             target.setAmount(Long.parseLong(amounts[i]));
             target.setOrderChannel(orderChannels[i].trim());
         }
+        
+        sales.removeAll(deleteTargets);
         
         //목록으로 이동해 수정된 매출과 합계 표시
         response.sendRedirect(request.getContextPath() + "/sales/list");
@@ -190,5 +211,10 @@ public class SalesEditServlet extends HttpServlet {
     private void showEditError(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
         doGet(request, response);
+    }
+    
+    private String[] getValues(HttpServletRequest request, String name) {
+        String[] values = request.getParameterValues(name);
+        return values == null ? new String[0] : values;
     }
 }
