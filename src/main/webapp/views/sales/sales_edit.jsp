@@ -1,5 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${requestScope.sales == null}">
+    <jsp:forward page="/sales/edit" />
+</c:if>
+
+<fmt:setLocale value="ko_KR" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,7 +29,7 @@
         <div class="card-header">
           <div>
             <h2>매출 내역 수정</h2>
-            <p>샘플 데이터입니다. 수정할 값을 클릭하세요.</p>
+            <p>수정할 값을 클릭하세요.</p>
             <p>금액은 해당 상품 행의 품목 합계입니다.</p>
           </div>
 
@@ -30,8 +38,16 @@
 
         <div class="sales-summary">
           <p>표시 중인 매출 합계</p>
-          <strong id="sales-edit-total">₩ 20,500</strong>
+          <strong id="sales-edit-total">
+            ₩ <fmt:formatNumber value="${requestScope.totalSalesAmount}" pattern="#,##0" />
+          </strong>
         </div>
+
+        <c:if test="${not empty requestScope.errorMessage}">
+          <p><c:out value="${requestScope.errorMessage}" /></p>
+        </c:if>
+
+        <form id="sales-edit-form" action="${pageContext.request.contextPath}/sales/edit" method="post">
 
         <div class="table-scroll">
           <table class="preview-table sales-table sales-edit-table">
@@ -45,49 +61,37 @@
               <th scope="col">삭제</th>
             </tr>
             </thead>
+            
             <tbody>
-            <tr>
-              <td data-field="date" data-value="2026-11-01T09:12">
-                2026-11-01 09:12
-              </td>
-              <td data-field="product">아메리카노</td>
-              <td data-field="quantity" data-value="2">2</td>
-              <td data-field="amount" data-value="9000">₩ 9,000</td>
-              <td data-field="channel">매장 POS</td>
-              <td>
-                <button type="button" class="sales-delete-button" disabled>
-                  삭제
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td data-field="date" data-value="2026-11-01T09:18">
-                2026-11-01 09:18
-              </td>
-              <td data-field="product">카페라떼</td>
-              <td data-field="quantity" data-value="1">1</td>
-              <td data-field="amount" data-value="5500">₩ 5,500</td>
-              <td data-field="channel">키오스크</td>
-              <td>
-                <button type="button" class="sales-delete-button" disabled>
-                  삭제
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td data-field="date" data-value="2026-11-01T09:25">
-                2026-11-01 09:25
-              </td>
-              <td data-field="product">바닐라라떼</td>
-              <td data-field="quantity" data-value="1">1</td>
-              <td data-field="amount" data-value="6000">₩ 6,000</td>
-              <td data-field="channel">배달의민족</td>
-              <td>
-                <button type="button" class="sales-delete-button" disabled>
-                  삭제
-                </button>
-              </td>
-            </tr>
+            <c:forEach var="sale" items="${requestScope.sales}">
+              <tr data-sale-id="${sale.saleId}">
+                <td data-field="date" data-value="${sale.saleDate}">
+                  <c:out value="${sale.saleDateText}" />
+                </td>
+                
+                <td data-field="product">
+                  <c:out value="${sale.productName}" />
+                </td>
+                
+                <td data-field="quantity" data-value="${sale.quantity}">
+                  <fmt:formatNumber value="${sale.quantity}" pattern="#,##0" />
+                </td>
+                
+                <td data-field="amount" data-value="${sale.amount}">
+                  ₩ <fmt:formatNumber value="${sale.amount}" pattern="#,##0" />
+                </td>
+                
+                <td data-field="channel">
+                  <c:out value="${sale.orderChannel}" />
+                </td>
+                
+                <td>
+                  <button type="button" class="sales-delete-button" disabled>
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            </c:forEach>
             </tbody>
           </table>
 
@@ -97,10 +101,10 @@
         <div class="preview-actions sales-edit-actions">
           <a href="sales_list.jsp" class="secondary-button">취소</a>
           <button type="button" id="sales-edit-save"
-                  class="primary-button" disabled>
-            저장
+                  class="primary-button" disabled>저장
           </button>
         </div>
+        </form>
       </section>
     </main>
   </div>

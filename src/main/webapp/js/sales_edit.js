@@ -145,6 +145,8 @@ salesTable.querySelectorAll("[data-field]").forEach(function (cell) {
 
 updateSalesTotal();
 
+emptyMessage.hidden = salesTable.querySelectorAll("tbody tr").length > 0;
+
 salesTable.addEventListener("input", updateSalesTotal);
 
 salesTable.querySelectorAll(".sales-delete-button").forEach(function (button) {
