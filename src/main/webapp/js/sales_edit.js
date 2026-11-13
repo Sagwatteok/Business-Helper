@@ -2,6 +2,10 @@ const salesTable = document.querySelector(".sales-edit-table");
 const totalDisplay = document.getElementById("sales-edit-total");
 const emptyMessage = document.getElementById("sales-empty-message");
 const saveButton = document.getElementById("sales-edit-save");
+const salesEditForm = document.getElementById("sales-edit-form");
+const submittedValues = document.createElement("div");
+const deletedSaleIds = new Set();
+salesEditForm.appendChild(submittedValues);
 const moneyFormatter = new Intl.NumberFormat("ko-KR");
 const editableFields = [];
 
@@ -161,6 +165,7 @@ salesTable.querySelectorAll(".sales-delete-button").forEach(function (button) {
             return;
         }
 
+		deletedSaleIds.add(row.dataset.saleId); //행을 지우기 전에 삭제 ID 보관
         row.remove();
         updateSalesTotal();
 
@@ -170,6 +175,17 @@ salesTable.querySelectorAll(".sales-delete-button").forEach(function (button) {
 
     button.disabled = false;
 });
+
+//숨김 입력을 만드는 함수
+function addEditValue(name, value) {
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+
+    submittedValues.appendChild(input);
+}
 
 saveButton.addEventListener("click", function () {
     let firstInvalidEditor = null;
@@ -194,8 +210,30 @@ saveButton.addEventListener("click", function () {
         return;
     }
 
-    alert("저장되었습니다.");
-    window.location.href = "sales_list.jsp";
+	//수정한 값과 삭제할 ID를 모아 서버로 전송
+    submittedValues.replaceChildren();
+
+    salesTable.querySelectorAll("tbody tr").forEach(function (row) {
+        const saleId = row.dataset.saleId;
+        const saleDate = row.querySelector('[data-field="date"]').dataset.value;
+        const productName = row.querySelector('[data-field="product"]').dataset.value;
+        const quantity = row.querySelector('[data-field="quantity"]').dataset.value;
+        const amount = row.querySelector('[data-field="amount"]').dataset.value;
+        const orderChannel = row.querySelector('[data-field="channel"]').dataset.value;
+
+        addEditValue("saleId", saleId);
+        addEditValue("saleDate", saleDate);
+        addEditValue("productName", productName);
+        addEditValue("quantity", quantity);
+        addEditValue("amount", amount);
+        addEditValue("orderChannel", orderChannel);
+    });
+
+    deletedSaleIds.forEach(function (saleId) {
+        addEditValue("deletedSaleId", saleId);
+    });
+
+    salesEditForm.requestSubmit();
 });
 
 saveButton.disabled = false;
