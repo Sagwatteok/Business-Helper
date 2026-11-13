@@ -5,6 +5,7 @@ const productEditForm = document.getElementById("product-edit-form");
 const submittedValues = document.createElement("div");
 productEditForm.appendChild(submittedValues); //서버로 보낼 숨김 입력 요소들을 담는 공간
 const editableFields = [];
+const deletedProductIds = new Set();
 const moneyFormatter = new Intl.NumberFormat("ko-KR"); //금액 콘마로 표기
 
 const fieldLabels = {
@@ -168,9 +169,9 @@ productTable.querySelectorAll(".product-delete-button").forEach(function (button
             return;
         }
 
-        row.remove();
-        emptyMessage.hidden =
-            productTable.querySelectorAll("tbody tr").length > 0;
+		deletedProductIds.add(row.dataset.productId);
+		row.remove();
+        emptyMessage.hidden = productTable.querySelectorAll("tbody tr").length > 0;
     });
 });
 
@@ -227,5 +228,8 @@ saveButton.addEventListener("click", function () {
 	    addEditValue("saleStatus", saleStatus);
 	});
 
+	deletedProductIds.forEach(function (productId) {
+	    addEditValue("deletedProductId", productId);
+	});
 	productEditForm.requestSubmit();
 });

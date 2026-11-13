@@ -65,20 +65,13 @@ public class ProductEditServlet extends HttpServlet {
 
         List<Product> products = (List<Product>) session.getAttribute("products");
 
-        String[] productIds = request.getParameterValues("productId");
-        String[] productNames = request.getParameterValues("productName");
-        String[] categories = request.getParameterValues("category");
-        String[] salePrices = request.getParameterValues("salePrice");
-        String[] estimatedCosts = request.getParameterValues("estimatedCost");
-        String[] saleStatuses = request.getParameterValues("saleStatus");
-
-        if (productIds == null || productNames == null
-                || categories == null || salePrices == null
-                || estimatedCosts == null || saleStatuses == null) {
-
-            showEditError(request, response, "수정할 상품 정보를 확인해 주세요.");
-            return;
-        }
+        String[] productIds = getValues(request, "productId");
+        String[] productNames = getValues(request, "productName");
+        String[] categories = getValues(request, "category");
+        String[] salePrices = getValues(request, "salePrice");
+        String[] estimatedCosts = getValues(request, "estimatedCost");
+        String[] saleStatuses = getValues(request, "saleStatus");
+        String[] deletedProductIds = getValues(request, "deletedProductId");
 
         int count = productIds.length;
 
@@ -90,7 +83,8 @@ public class ProductEditServlet extends HttpServlet {
             return;
         }
 
-        List<Product> targets = new ArrayList<>();
+        List<Product> targets = new ArrayList<>(); //수정 대상
+        List<Product> deleteTargets = new ArrayList<>(); //삭제 대상
         Set<String> checkedIds = new HashSet<>();
 
         //검사
@@ -115,6 +109,25 @@ public class ProductEditServlet extends HttpServlet {
             targets.add(target);
         }
 
+        //실제 수정 전에 삭제 대상 검사
+        for (String productId : deletedProductIds) {
+            if (!checkedIds.add(productId)) {
+                showEditError(request, response,
+                        "수정·삭제 대상 상품 ID가 중복되었습니다.");
+                return;
+            }
+
+            Product target = findProduct(products, productId);
+
+            if (target == null) {
+                showEditError(request, response,
+                        "삭제할 상품이 없습니다. 수정 화면을 다시 열어 주세요.");
+                return;
+            }
+
+            deleteTargets.add(target);
+        }
+        
         //문제가 없다고 검사한 대상 상품 수정
         for (int i = 0; i < count; i++) {
             Product target = targets.get(i);
@@ -126,6 +139,7 @@ public class ProductEditServlet extends HttpServlet {
             target.setSaleStatus(saleStatuses[i]);
         }
 
+        products.removeAll(deleteTargets); //검사 후 실제 삭제
         response.sendRedirect(request.getContextPath() + "/product/list");
     }
     
@@ -164,5 +178,11 @@ public class ProductEditServlet extends HttpServlet {
     private void showEditError(HttpServletRequest request, HttpServletResponse response, String message)throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
         doGet(request, response);
+    }
+    
+    //빈 배열 처리
+    private String[] getValues(HttpServletRequest request, String name) {
+        String[] values = request.getParameterValues(name);
+        return values == null ? new String[0] : values;
     }
 }
