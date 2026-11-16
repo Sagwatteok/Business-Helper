@@ -1,5 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${requestScope.expenses == null}">
+    <jsp:forward page="/expense/edit" />
+</c:if>
+
+<fmt:setLocale value="ko_KR" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,7 +36,7 @@
                 <div class="card-header">
                     <div>
                         <h2>지출 내역 수정</h2>
-                        <p>샘플 데이터입니다. 수정할 값을 클릭하세요.</p>
+                        <p>수정할 값을 클릭하세요.</p>
                     </div>
 
                     <a href="expense_list.jsp" class="secondary-button">목록으로</a>
@@ -36,8 +44,16 @@
 
                 <div class="sales-summary">
                     <p>표시 중인 지출 합계</p>
-                    <strong id="expense-edit-total">₩ 812,000</strong>
+                    <strong id="expense-edit-total">
+                        ₩ <fmt:formatNumber value="${requestScope.totalExpenseAmount}" pattern="#,##0" />
+                    </strong>
                 </div>
+
+                <c:if test="${not empty requestScope.errorMessage}">
+                    <p><c:out value="${requestScope.errorMessage}" /></p>
+                </c:if>
+
+                <form id="expense-edit-form" action="${pageContext.request.contextPath}/expense/edit" method="post">
 
                 <div class="table-scroll">
                     <table class="preview-table expense-table expense-edit-table">
@@ -51,42 +67,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td data-field="date">2026-11-05</td>
-                            <td data-field="category">기타</td>
-                            <td data-field="description">포장 용기 구입</td>
-                            <td data-field="amount" data-value="32000"
-                                class="expense-amount">₩ 32,000</td>
-                            <td>
-                                <button type="button" class="expense-delete-button" disabled>
-                                    삭제
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-field="date">2026-11-03</td>
-                            <td data-field="category">재료비</td>
-                            <td data-field="description">원두 구입</td>
-                            <td data-field="amount" data-value="80000"
-                                class="expense-amount">₩ 80,000</td>
-                            <td>
-                                <button type="button" class="expense-delete-button" disabled>
-                                    삭제
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-field="date">2026-11-01</td>
-                            <td data-field="category">임대료</td>
-                            <td data-field="description">11월 매장 임대료</td>
-                            <td data-field="amount" data-value="700000"
-                                class="expense-amount">₩ 700,000</td>
-                            <td>
-                                <button type="button" class="expense-delete-button" disabled>
-                                    삭제
-                                </button>
-                            </td>
-                        </tr>
+                        <c:forEach var="expense" items="${requestScope.expenses}">
+                            <tr data-expense-id="${expense.expenseId}">
+                                <td data-field="date" data-value="${expense.expenseDate}">
+                                    <c:out value="${expense.expenseDate}" />
+                                </td>
+                                <td data-field="category">
+                                    <c:out value="${expense.category}" />
+                                </td>
+                                <td data-field="description">
+                                    <c:out value="${expense.description}" />
+                                </td>
+                                <td data-field="amount" data-value="${expense.amount}"
+                                    class="expense-amount">
+                                    ₩ <fmt:formatNumber value="${expense.amount}" pattern="#,##0" />
+                                </td>
+                                <td>
+                                    <button type="button" class="expense-delete-button" disabled>
+                                        삭제
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
 
@@ -100,6 +102,7 @@
                         저장
                     </button>
                 </div>
+                </form>
             </section>
         </main>
     </div>

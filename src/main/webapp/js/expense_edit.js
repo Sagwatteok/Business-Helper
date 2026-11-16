@@ -142,7 +142,7 @@ expenseTable.querySelectorAll("[data-field]").forEach(function (cell) {
 });
 
 updateExpenseTotal();
-
+emptyMessage.hidden = expenseTable.querySelectorAll("tbody tr").length > 0;
 expenseTable.addEventListener("input", updateExpenseTotal);
 
 expenseTable.querySelectorAll(".expense-delete-button").forEach(function (button) {
