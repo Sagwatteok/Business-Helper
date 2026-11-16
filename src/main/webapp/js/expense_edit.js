@@ -2,6 +2,11 @@ const expenseTable = document.querySelector(".expense-edit-table");
 const totalDisplay = document.getElementById("expense-edit-total");
 const emptyMessage = document.getElementById("expense-empty-message");
 const saveButton = document.getElementById("expense-edit-save");
+const expenseEditForm = document.getElementById("expense-edit-form");
+const submittedValues = document.createElement("div");
+const deletedExpenseIds = new Set();
+
+expenseEditForm.appendChild(submittedValues);
 const moneyFormatter = new Intl.NumberFormat("ko-KR");
 const editableFields = [];
 
@@ -156,7 +161,8 @@ expenseTable.querySelectorAll(".expense-delete-button").forEach(function (button
         if (!confirmed) {
             return;
         }
-
+		
+		deletedExpenseIds.add(row.dataset.expenseId);
         row.remove();
         updateExpenseTotal();
 
@@ -166,6 +172,16 @@ expenseTable.querySelectorAll(".expense-delete-button").forEach(function (button
 
     button.disabled = false;
 });
+
+function addEditValue(name, value) { //숨김 입력 만듦
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+
+    submittedValues.appendChild(input);
+}
 
 saveButton.addEventListener("click", function () {
     let firstInvalidEditor = null;
@@ -190,8 +206,27 @@ saveButton.addEventListener("click", function () {
         return;
     }
 
-    alert("저장되었습니다.");
-    window.location.href = "expense_list.jsp";
+	submittedValues.replaceChildren();
+
+	expenseTable.querySelectorAll("tbody tr").forEach(function (row) {
+	    const expenseId = row.dataset.expenseId;
+	    const expenseDate = row.querySelector('[data-field="date"]').dataset.value;
+	    const category = row.querySelector('[data-field="category"]').dataset.value;
+	    const description = row.querySelector('[data-field="description"]').dataset.value;
+	    const amount = row.querySelector('[data-field="amount"]').dataset.value;
+
+	    addEditValue("expenseId", expenseId);
+	    addEditValue("expenseDate", expenseDate);
+	    addEditValue("category", category);
+	    addEditValue("description", description);
+	    addEditValue("amount", amount);
+	});
+
+	deletedExpenseIds.forEach(function (expenseId) {
+	    addEditValue("deletedExpenseId", expenseId);
+	});
+
+	expenseEditForm.requestSubmit();
 });
 
 saveButton.disabled = false;

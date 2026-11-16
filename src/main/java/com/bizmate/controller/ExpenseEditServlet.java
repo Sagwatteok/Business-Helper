@@ -74,21 +74,14 @@ public class ExpenseEditServlet extends HttpServlet {
             return;
         }
 
-        List<Expense> expenses =
-                (List<Expense>) session.getAttribute("expenses");
+        List<Expense> expenses = (List<Expense>) session.getAttribute("expenses");
 
-        String[] expenseIds = request.getParameterValues("expenseId");
-        String[] expenseDates = request.getParameterValues("expenseDate");
-        String[] categories = request.getParameterValues("category");
-        String[] descriptions = request.getParameterValues("description");
-        String[] amounts = request.getParameterValues("amount");
-
-        if (expenseIds == null || expenseDates == null || categories == null
-                || descriptions == null || amounts == null) {
-
-            showEditError(request, response, "수정할 지출 정보를 확인해 주세요.");
-            return;
-        }
+        String[] expenseIds = getValues(request, "expenseId");
+        String[] expenseDates = getValues(request, "expenseDate");
+        String[] categories = getValues(request, "category");
+        String[] descriptions = getValues(request, "description");
+        String[] amounts = getValues(request, "amount");
+        String[] deletedExpenseIds = getValues(request, "deletedExpenseId");
 
         int count = expenseIds.length;
 
@@ -100,6 +93,7 @@ public class ExpenseEditServlet extends HttpServlet {
         }
 
         List<Expense> targets = new ArrayList<>();
+        List<Expense> deleteTargets = new ArrayList<>();
         Set<String> checkedIds = new HashSet<>();
 
         for (int i = 0; i < count; i++) {
@@ -126,6 +120,23 @@ public class ExpenseEditServlet extends HttpServlet {
             targets.add(target);
         }
 
+        //합계 검사 전에 삭제 대상 검사
+        for (String expenseId : deletedExpenseIds) {
+            if (!checkedIds.add(expenseId)) {
+                showEditError(request, response, "수정 또는 삭제 대상 지출 ID가 중복되었습니다.");
+                return;
+            }
+
+            Expense target = findExpense(expenses, expenseId);
+
+            if (target == null) {
+                showEditError(request, response, "삭제할 지출이 없습니다. 수정 화면을 다시 열어 주세요.");
+                return;
+            }
+
+            deleteTargets.add(target);
+        }
+        
         try {
             long total = 0;
 
@@ -152,7 +163,8 @@ public class ExpenseEditServlet extends HttpServlet {
             target.setDescription(descriptions[i].trim());
             target.setAmount(Long.parseLong(amounts[i]));
         }
-
+        
+        expenses.removeAll(deleteTargets);
         response.sendRedirect(request.getContextPath() + "/expense/list");
     }
 
@@ -194,5 +206,10 @@ public class ExpenseEditServlet extends HttpServlet {
     private void showEditError(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
         doGet(request, response);
+    }
+    
+    private String[] getValues(HttpServletRequest request, String name) {
+        String[] values = request.getParameterValues(name);
+        return values == null ? new String[0] : values;
     }
 }
