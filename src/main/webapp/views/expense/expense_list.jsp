@@ -1,5 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${requestScope.expenses == null}">
+    <jsp:forward page="/expense/list" />
+</c:if>
+
+<fmt:setLocale value="ko_KR" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +35,7 @@
             <section class="preview-table-card">
                 <div class="card-header">
                     <div>
-                        <h2>11월 지출 내역</h2>
+                        <h2>지출 내역</h2>
                         <p>매장 운영에 실제로 지출한 내역을 확인하세요.</p>
                     </div>
 
@@ -40,8 +48,10 @@
                 </div>
 
                 <div class="sales-summary">
-                    <p>2026년 11월 등록 지출 합계</p>
-                    <strong>₩ 812,000</strong>
+                    <p>등록 지출 합계</p>
+                    <strong>
+                        ₩ <fmt:formatNumber value="${requestScope.totalExpenseAmount}" pattern="#,##0" />
+                    </strong>
                 </div>
 
                 <div class="table-scroll">
@@ -55,24 +65,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>2026-11-05</td>
-                            <td>기타</td>
-                            <td>포장 용기 구입</td>
-                            <td class="expense-amount">₩ 32,000</td>
-                        </tr>
-                        <tr>
-                            <td>2026-11-03</td>
-                            <td>재료비</td>
-                            <td>원두 구입</td>
-                            <td class="expense-amount">₩ 80,000</td>
-                        </tr>
-                        <tr>
-                            <td>2026-11-01</td>
-                            <td>임대료</td>
-                            <td>11월 매장 임대료</td>
-                            <td class="expense-amount">₩ 700,000</td>
-                        </tr>
+                        <c:forEach var="expense" items="${requestScope.expenses}">
+                            <tr>
+                                <td>
+                                    <c:out value="${expense.expenseDate}" />
+                                </td>
+                                <td>
+                                    <c:out value="${expense.category}" />
+                                </td>
+                                <td>
+                                    <c:out value="${expense.description}" />
+                                </td>
+                                <td class="expense-amount">
+                                    ₩ <fmt:formatNumber value="${expense.amount}" pattern="#,##0" />
+                                </td>
+                            </tr>
+                        </c:forEach>
+
+                        <c:if test="${empty requestScope.expenses}">
+                            <tr>
+                                <td colspan="4">등록된 지출이 없습니다.</td>
+                            </tr>
+                        </c:if>
                         </tbody>
                     </table>
                 </div>

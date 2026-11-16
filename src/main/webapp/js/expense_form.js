@@ -13,13 +13,9 @@ descriptionInput.addEventListener("input", validateDescription);
 validateDescription();
 
 expenseForm.addEventListener("submit", function (event) {
-    event.preventDefault();
     validateDescription();
 
     if (!expenseForm.reportValidity()) {
-        return;
+        event.preventDefault();
     }
-
-    alert("저장되었습니다.");
-    window.location.href = "expense_list.jsp";
 });

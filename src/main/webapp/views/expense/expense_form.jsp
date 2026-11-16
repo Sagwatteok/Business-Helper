@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,8 +27,13 @@
     <main class="main-content preview-main">
       <section class="preview-table-card">
         <h2>지출 정보 입력</h2>
-
-        <form id="expense-form" class="expense-form">
+        
+        <c:if test="${not empty requestScope.errorMessage}">
+          <p><c:out value="${requestScope.errorMessage}" /></p>
+        </c:if>
+        
+        <form id="expense-form" class="expense-form" action="${pageContext.request.contextPath}/expense/list" method="post">
+              
           <p>
             <label for="expense-date">지출일</label>
             <input id="expense-date" name="expenseDate" type="date" required>
