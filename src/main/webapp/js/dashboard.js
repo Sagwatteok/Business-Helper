@@ -1,4 +1,12 @@
 const chartCanvas = document.getElementById("weeklySalesChart");
+const weeklySalesData = document.querySelectorAll("#weekly-sales-data span");
+const weeklySalesLabels = [];
+const weeklySalesAmounts = [];
+
+weeklySalesData.forEach(function (item) {
+    weeklySalesLabels.push(item.dataset.label);
+    weeklySalesAmounts.push(Number(item.dataset.amount));
+});
 
 if (chartCanvas) {
     const weeklySalesChart = new Chart(chartCanvas, {
@@ -6,13 +14,12 @@ if (chartCanvas) {
 
         data: {
             //차트의 가로축에 표시할 이름
-            labels: ["10/28", "10/29", "10/30", "10/31", "11/01", "11/02", "11/03"],
+            labels: weeklySalesLabels,
 
             datasets: [
                 {
                     label: "매출",
-                    data: [320000, 410000, 385000, 470000, 395000, 432000, 428000],
-
+                    data: weeklySalesAmounts,
                     borderColor: "#84B2D0", //그래프 선 색상
                     backgroundColor: "rgba(132, 178, 208, 0.18)", //선 아래에 채워지는 배경색
 

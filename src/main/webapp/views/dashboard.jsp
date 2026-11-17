@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${requestScope.dashboardDate == null}">
+    <jsp:forward page="/dashboard" />
+</c:if>
+
+<fmt:setLocale value="ko_KR" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,7 +37,10 @@
             <section class="welcome-section">
                 <div>
                     <h2>오늘의 매장 현황이에요</h2>
-                    <p>2026년 11월 3일 기준 운영 데이터를 확인해 보세요.</p>
+                    <p>
+                        <c:out value="${requestScope.dashboardDate}" />
+                        기준 운영 데이터를 확인해 보세요.
+                    </p>
                 </div>
 
                 <a href="${pageContext.request.contextPath}/sales/upload.jsp"
@@ -40,26 +51,32 @@
             <section class="metric-grid">
                 <article class="metric-card">
                     <p class="metric-label">오늘 매출</p>
-                    <strong class="metric-value">₩ 428,000</strong>
-                    <p class="metric-change positive">▲ 어제보다 12.4%</p>
+                    <strong class="metric-value">
+                        ₩ <fmt:formatNumber value="${requestScope.todaySalesAmount}" pattern="#,##0" />
+                    </strong>
+                    <p class="metric-description">오늘 판매일시 기준 합계</p>
                 </article>
 
                 <article class="metric-card">
                     <p class="metric-label">오늘 지출</p>
-                    <strong class="metric-value">₩ 96,000</strong>
-                    <p class="metric-description">재료비, 배달비 포함</p>
+                    <strong class="metric-value">
+                        ₩ <fmt:formatNumber value="${requestScope.todayExpenseAmount}" pattern="#,##0" />
+                    </strong>
+                    <p class="metric-description">오늘 지출일 기준 합계</p>
                 </article>
 
                 <article class="metric-card">
-                    <p class="metric-label">오늘 순이익</p>
-                    <strong class="metric-value">₩ 332,000</strong>
-                    <p class="metric-change positive">▲ 어제보다 8.1%</p>
+                    <p class="metric-label">오늘 차액</p>
+                    <strong class="metric-value">
+                        ₩ <fmt:formatNumber value="${requestScope.todayBalance}" pattern="#,##0" />
+                    </strong>
+                    <p class="metric-description">오늘 매출에서 오늘 지출을 뺀 금액</p>
                 </article>
 
                 <article class="metric-card">
                     <p class="metric-label">주문 수</p>
-                    <strong class="metric-value">87건</strong>
-                    <p class="metric-description">평균 객단가 ₩ 4,920</p>
+                    <strong class="metric-value">—</strong>
+                    <p class="metric-description">집계 연결 예정</p>
                 </article>
             </section>
 
@@ -67,7 +84,11 @@
                 <div class="card-header">
                     <div>
                         <h2>최근 7일 매출 추이</h2>
-                        <p>10월 28일 ~ 11월 3일</p>
+                        <p>
+                            <c:out value="${requestScope.weeklySalesStartDate}" />
+                            ~
+                            <c:out value="${requestScope.dashboardDate}" />
+                        </p>
                     </div>
 
                     <button type="button" class="period-button">
@@ -76,9 +97,10 @@
                 </div>
 
                 <div class="sales-summary">
-                    <p>이번 주 총매출</p>
-                    <strong>₩ 2,840,000</strong>
-                    <span class="metric-change positive">▲ 지난주보다 8.1%</span>
+                    <p>최근 7일 총매출</p>
+                    <strong>
+                        ₩ <fmt:formatNumber value="${requestScope.weeklySalesTotal}" pattern="#,##0" />
+                    </strong>
                 </div>
 
                 <div class="chart-area">
@@ -156,7 +178,14 @@
     </div>
 </div>
 
+<div id="weekly-sales-data" hidden="hidden">
+    <c:forEach var="label" items="${requestScope.weeklySalesLabels}" varStatus="status">
+        <span data-label="${label}"
+              data-amount="${requestScope.weeklySalesAmounts[status.index]}"></span>
+    </c:forEach>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
+<script src="${pageContext.request.contextPath}/js/dashboard.js?v=20261117"></script>
 </body>
 </html>
