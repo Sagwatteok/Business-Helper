@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bizmate.model.Expense;
+import com.bizmate.model.ProductSalesSummary;
 import com.bizmate.model.Sale;
 
 @WebServlet("/dashboard")
@@ -80,6 +84,41 @@ public class DashboardServlet extends HttpServlet {
             weeklySalesTotal += dailyAmount;
         }
         
+        Map<String, ProductSalesSummary> productSummaries = new HashMap<>();
+
+        if (sales != null) {
+            for (Sale sale : sales) {
+                LocalDate saleDate = sale.getSaleDate().toLocalDate();
+
+                if (saleDate.isBefore(weeklySalesStartDate) || saleDate.isAfter(today)) {
+                    continue;
+                }
+
+                String productName = sale.getProductName();
+                ProductSalesSummary summary = productSummaries.get(productName);
+
+                if (summary == null) {
+                    summary = new ProductSalesSummary(productName, 0, 0);
+                    productSummaries.put(productName, summary);
+                }
+
+                summary.setTotalQuantity(summary.getTotalQuantity() + sale.getQuantity());
+                summary.setTotalAmount(summary.getTotalAmount() + sale.getAmount());
+            }
+        }
+
+        List<ProductSalesSummary> topProducts = new ArrayList<>(productSummaries.values());
+
+        topProducts.sort(
+                Comparator.comparingLong(ProductSalesSummary::getTotalQuantity)
+                        .reversed()
+                        .thenComparing(Comparator.comparingLong(ProductSalesSummary::getTotalAmount).reversed())
+                        .thenComparing(ProductSalesSummary::getProductName));
+
+        if (topProducts.size() > 3) {
+            topProducts = new ArrayList<>(topProducts.subList(0, 3));
+        }
+        
         request.setAttribute("dashboardDate", today);
         request.setAttribute("todaySalesAmount", todaySalesAmount);
         request.setAttribute("todayExpenseAmount", todayExpenseAmount);
@@ -88,6 +127,7 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("weeklySalesLabels", weeklySalesLabels);
         request.setAttribute("weeklySalesAmounts", weeklySalesAmounts);
         request.setAttribute("weeklySalesTotal", weeklySalesTotal);
+        request.setAttribute("topProducts", topProducts);
         
         request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
     }

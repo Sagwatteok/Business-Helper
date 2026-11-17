@@ -129,26 +129,30 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td><span class="rank-badge rank-first">1</span></td>
-                        <td>아메리카노</td>
-                        <td>128잔</td>
-                        <td class="sales-amount">₩ 576,000</td>
-                    </tr>
+                    <c:forEach var="summary" items="${requestScope.topProducts}" varStatus="status">
+                        <tr>
+                            <td>
+            					<span class="rank-badge ${status.first ? 'rank-first' : ''}">
+                    				${status.count}
+            					</span>
+                            </td>
+                            <td>
+                                <c:out value="${summary.productName}" />
+                            </td>
+                            <td>
+                                <fmt:formatNumber value="${summary.totalQuantity}" pattern="#,##0" />개
+                            </td>
+                            <td class="sales-amount">
+                                ₩ <fmt:formatNumber value="${summary.totalAmount}" pattern="#,##0" />
+                            </td>
+                        </tr>
+                    </c:forEach>
 
-                    <tr>
-                        <td><span class="rank-badge">2</span></td>
-                        <td>카페라떼</td>
-                        <td>86잔</td>
-                        <td class="sales-amount">₩ 473,000</td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="rank-badge">3</span></td>
-                        <td>바닐라라떼</td>
-                        <td>64잔</td>
-                        <td class="sales-amount">₩ 384,000</td>
-                    </tr>
+                    <c:if test="${empty requestScope.topProducts}">
+                        <tr>
+                            <td colspan="4">최근 7일 매출 내역이 없습니다.</td>
+                        </tr>
+                    </c:if>
                     </tbody>
                 </table>
             </section>
