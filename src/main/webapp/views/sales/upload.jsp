@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,17 +33,23 @@
                 <p>업로드한 파일을 분석해 매출 현황과 경영 인사이트를 제공해 드려요.</p>
             </section>
 
-            <!-- 나중에 form action과 method를 Servlet 방식에 맞게 변경 -->
-            <form class="upload-card" id="uploadForm">
+            <form class="upload-card"
+                  id="uploadForm"
+                  action="${pageContext.request.contextPath}/sales/upload"
+                  method="post"
+                  enctype="multipart/form-data">
+
                 <input type="file"
                        id="salesFile"
-                       accept=".csv,.xls,.xlsx"
+                       name="salesFile"
+                       accept=".csv"
+                       required
                        hidden>
 
                 <label for="salesFile" class="file-select-area">
                     <span class="upload-icon" aria-hidden="true">↑</span>
                     <strong>클릭하여 매출 파일을 선택하세요</strong>
-                    <span>CSV, XLS, XLSX 파일을 지원합니다.</span>
+                    <span>UTF-8로 저장한 CSV 파일을 지원합니다.</span>
                 </label>
 
                 <p class="upload-guide">
@@ -63,23 +70,25 @@
                 </div>
 
                 <!-- 오류가 있을 때 JavaScript가 표시 -->
-                <p class="upload-error" id="uploadError" role="alert" hidden></p>
+                <p class="upload-error" id="uploadError" role="alert" ${empty requestScope.uploadError ? 'hidden' : ''}>
+                    <c:out value="${requestScope.uploadError}" />
+                </p>
 
                 <!-- 다음 단계에서 미리보기 화면으로 이동 -->
-                <button type="button"
+                <button type="submit"
                         class="next-button"
                         id="nextButton"
                         disabled>
                     다음: 파일 미리보기
                 </button>
                 <div class="preview-actions">
-                    <a href="sales_list.jsp" class="secondary-button">취소</a>
+                    <a href="${pageContext.request.contextPath}/sales/list" class="secondary-button">취소</a>
                 </div>
             </form>
         </main>
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/upload.js"></script>
+<script src="${pageContext.request.contextPath}/js/upload.js?v=20261118"></script>
 </body>
 </html>

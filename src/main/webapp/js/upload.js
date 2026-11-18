@@ -6,20 +6,21 @@ const removeFile = document.getElementById("removeFile");
 const nextButton = document.getElementById("nextButton");
 const uploadError = document.getElementById("uploadError");
 
-const allowedExtensions = ["csv", "xls", "xlsx"];
+const allowedExtensions = ["csv"];
 const maxFileSize = 10 * 1024 * 1024;
 
 salesFile.addEventListener("change", function () {
     const file = salesFile.files[0]; //첫번째 파일의 정보
 
-    if (!file) {
-        return;
-    }
+	if (!file) {
+	    resetFile();
+	    return;
+	}
 
     const extension = file.name.split(".").pop().toLowerCase();
 
     if (!allowedExtensions.includes(extension)) {
-        showError("CSV, XLS, XLSX 파일만 선택할 수 있습니다.");
+        showError("CSV 파일만 선택할 수 있습니다.");
         resetFile();
         return;
     }
@@ -42,13 +43,6 @@ salesFile.addEventListener("change", function () {
 removeFile.addEventListener("click", function () {
     resetFile();
 });
-
-nextButton.addEventListener("click", function () {
-    if (!nextButton.disabled) {
-        window.location.href = "preview.jsp";
-    }
-});
-
 
 function resetFile() { //파일 선택 상태 초기화
     salesFile.value = "";
