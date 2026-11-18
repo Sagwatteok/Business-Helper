@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${empty sessionScope.salesCsvUpload}">
+    <c:redirect url="/sales/upload" />
+</c:if>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -36,12 +41,14 @@
 
                 <div class="file-summary-content">
                     <p class="file-summary-label">업로드할 파일</p>
-                    <strong>sales_2026_11.csv</strong>
+                    <strong>
+                        <c:out value="${sessionScope.salesCsvUpload.fileName}" />
+                    </strong>
 
                     <div class="file-summary-detail">
                         <span>CSV 파일</span>
                         <span aria-hidden="true">·</span>
-                        <span>총 248행</span>
+                        <span>총 ${sessionScope.salesCsvUpload.rowCount}행</span>
                     </div>
                 </div>
             </section>
@@ -58,73 +65,34 @@
                     <table class="preview-table sales-preview-table">
                         <thead>
                         <tr>
-                            <th scope="col">거래일시</th>
-                            <th scope="col">메뉴명</th>
-                            <th scope="col">판매수량</th>
-                            <th scope="col">판매금액</th>
-                            <th scope="col">주문번호</th>
-                            <th scope="col">단가</th>
-                            <th scope="col">주문경로</th>
+                            <c:forEach var="header" items="${sessionScope.salesCsvUpload.headers}">
+                                <th scope="col">
+                                    <c:out value="${header}" />
+                                </th>
+                            </c:forEach>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr>
-                            <td>2026-11-01 09:12</td>
-                            <td>아메리카노</td>
-                            <td>2</td>
-                            <td>₩ 9,000</td>
-                            <td>A-1001</td>
-                            <td>₩ 4,500</td>
-                            <td>매장 POS</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-11-01 09:18</td>
-                            <td>카페라떼</td>
-                            <td>1</td>
-                            <td>₩ 5,500</td>
-                            <td>A-1002</td>
-                            <td>₩ 5,500</td>
-                            <td>키오스크</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-11-01 09:25</td>
-                            <td>바닐라라떼</td>
-                            <td>1</td>
-                            <td>₩ 6,000</td>
-                            <td>A-1003</td>
-                            <td>₩ 6,000</td>
-                            <td>배달의민족</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-11-01 09:31</td>
-                            <td>아메리카노</td>
-                            <td>3</td>
-                            <td>₩ 13,500</td>
-                            <td>A-1004</td>
-                            <td>₩ 4,500</td>
-                            <td>매장 POS</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-11-01 09:42</td>
-                            <td>카페라떼</td>
-                            <td>2</td>
-                            <td>₩ 11,000</td>
-                            <td>A-1005</td>
-                            <td>₩ 5,500</td>
-                            <td>키오스크</td>
-                        </tr>
+                        <c:forEach var="row"
+                                   items="${sessionScope.salesCsvUpload.rows}"
+                                   begin="0"
+                                   end="4">
+                            <tr>
+                                <c:forEach var="cell" items="${row}">
+                                    <td>
+                                        <c:out value="${cell}" />
+                                    </td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </section>
 
             <div class="preview-actions">
-                <a href="upload.jsp" class="secondary-button">
+                <a href="${pageContext.request.contextPath}/sales/upload" class="secondary-button">
                     이전: 파일 다시 선택
                 </a>
 

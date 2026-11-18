@@ -36,7 +36,3 @@ function updateAmountExample() {
 
 amountBasis.addEventListener("change", updateAmountExample);
 updateAmountExample();
-
-mappingNextButton.addEventListener("click", function () {
-    window.location.href = "validation.jsp?amountBasis=" + encodeURIComponent(amountBasis.value);
-});

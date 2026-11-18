@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${empty sessionScope.salesCsvUpload}">
+    <c:redirect url="/sales/upload" />
+</c:if>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,16 +44,27 @@
 
                 <div class="file-summary-content">
                     <p class="file-summary-label">업로드할 파일</p>
-                    <strong>sales_2026_11.csv</strong>
+                    <strong>
+                        <c:out value="${sessionScope.salesCsvUpload.fileName}" />
+                    </strong>
 
                     <div class="file-summary-detail">
                         <span>CSV 파일</span>
                         <span aria-hidden="true">·</span>
-                        <span>총 248행</span>
+                        <span>총 ${sessionScope.salesCsvUpload.rowCount}행</span>
                     </div>
                 </div>
             </section>
 
+            <c:if test="${not empty requestScope.mappingError}">
+                <p>
+                    <c:out value="${requestScope.mappingError}" />
+                </p>
+            </c:if>
+
+            <form id="mappingForm"
+                  action="${pageContext.request.contextPath}/sales/validate"
+                  method="post">
             <section class="mapping-card">
                 <div class="card-header">
                     <div>
@@ -65,15 +81,15 @@
                             <p>거래가 발생한 날짜와 시간입니다.</p>
                         </div>
 
-                        <select id="map-sale-date" class="mapping-select" required>
+                        <select id="map-sale-date" name="saleDateColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <option value="transactionDate" selected>거래일시</option>
-                            <option value="productName">메뉴명</option>
-                            <option value="quantity">판매수량</option>
-                            <option value="salesAmount">판매금액</option>
-                            <option value="orderNo">주문번호</option>
-                            <option value="unitPrice">단가</option>
-                            <option value="orderChannel">주문경로</option>
+                            <c:forEach var="header"
+                                       items="${sessionScope.salesCsvUpload.headers}"
+                                       varStatus="status">
+                                <option value="${status.index}">
+                                    <c:out value="${header}" />
+                                </option>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -84,15 +100,15 @@
                             <p>판매한 메뉴 또는 상품 이름입니다.</p>
                         </div>
 
-                        <select id="map-product-name" class="mapping-select" required>
+                        <select id="map-product-name" name="productNameColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <option value="transactionDate">거래일시</option>
-                            <option value="productName" selected>메뉴명</option>
-                            <option value="quantity">판매수량</option>
-                            <option value="salesAmount">판매금액</option>
-                            <option value="orderNo">주문번호</option>
-                            <option value="unitPrice">단가</option>
-                            <option value="orderChannel">주문경로</option>
+                            <c:forEach var="header"
+                                       items="${sessionScope.salesCsvUpload.headers}"
+                                       varStatus="status">
+                                <option value="${status.index}">
+                                    <c:out value="${header}" />
+                                </option>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -103,15 +119,15 @@
                             <p>한 주문에서 판매한 상품 수량입니다.</p>
                         </div>
 
-                        <select id="map-quantity" class="mapping-select" required>
+                        <select id="map-quantity" name="quantityColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <option value="transactionDate">거래일시</option>
-                            <option value="productName">메뉴명</option>
-                            <option value="quantity" selected>판매수량</option>
-                            <option value="salesAmount">판매금액</option>
-                            <option value="orderNo">주문번호</option>
-                            <option value="unitPrice">단가</option>
-                            <option value="orderChannel">주문경로</option>
+                            <c:forEach var="header"
+                                       items="${sessionScope.salesCsvUpload.headers}"
+                                       varStatus="status">
+                                <option value="${status.index}">
+                                    <c:out value="${header}" />
+                                </option>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -122,7 +138,7 @@
                             <p id="amount-example" aria-live="polite">품목 합계 열의 금액을 그대로 사용합니다.</p>
                         </div>
 
-                        <select id="amount-basis" class="mapping-select" aria-describedby="amount-example" required>
+                        <select id="amount-basis" name="amountBasis" class="mapping-select" aria-describedby="amount-example" required>
                             <option value="lineTotal" selected>품목 합계</option>
                             <option value="unitPrice">단가</option>
                         </select>
@@ -135,15 +151,15 @@
                             <p>선택한 금액 기준에 해당하는 원본 파일 열을 연결합니다.</p>
                         </div>
 
-                        <select id="map-line-total" class="mapping-select" required>
+                        <select id="map-line-total" name="amountColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <option value="transactionDate">거래일시</option>
-                            <option value="productName">메뉴명</option>
-                            <option value="quantity">판매수량</option>
-                            <option value="salesAmount" selected>판매금액</option>
-                            <option value="orderNo">주문번호</option>
-                            <option value="unitPrice">단가</option>
-                            <option value="orderChannel">주문경로</option>
+                            <c:forEach var="header"
+                                       items="${sessionScope.salesCsvUpload.headers}"
+                                       varStatus="status">
+                                <option value="${status.index}">
+                                    <c:out value="${header}" />
+                                </option>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -154,15 +170,15 @@
                             <p>주문을 구분할 수 있는 번호입니다.</p>
                         </div>
 
-                        <select id="map-order-no" class="mapping-select">
+                        <select id="map-order-no" name="orderNoColumn" class="mapping-select">
                             <option value="">연결하지 않음</option>
-                            <option value="transactionDate">거래일시</option>
-                            <option value="productName">메뉴명</option>
-                            <option value="quantity">판매수량</option>
-                            <option value="salesAmount">판매금액</option>
-                            <option value="orderNo" selected>주문번호</option>
-                            <option value="unitPrice">단가</option>
-                            <option value="orderChannel">주문경로</option>
+                            <c:forEach var="header"
+                                       items="${sessionScope.salesCsvUpload.headers}"
+                                       varStatus="status">
+                                <option value="${status.index}">
+                                    <c:out value="${header}" />
+                                </option>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -173,9 +189,15 @@
                             <p>매장 POS, 키오스크처럼 주문이 접수된 곳입니다.</p>
                         </div>
 
-                        <select id="map-order-channel" class="mapping-select">
-                            <option value="" selected>연결하지 않음</option>
-                            <option value="orderChannel">주문경로</option>
+                        <select id="map-order-channel" name="orderChannelColumn" class="mapping-select">
+                            <option value="">연결하지 않음</option>
+                            <c:forEach var="header"
+                                       items="${sessionScope.salesCsvUpload.headers}"
+                                       varStatus="status">
+                                <option value="${status.index}">
+                                    <c:out value="${header}" />
+                                </option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
@@ -186,18 +208,18 @@
                     이전: 파일 미리보기
                 </a>
 
-                <!-- validation.jsp를 만든 뒤 href를 연결 -->
-                <button type="button"
+                <button type="submit"
                         class="mapping-next-button"
                         id="mappingNextButton"
                         disabled>
                     다음: 데이터 검증
                 </button>
             </div>
+            </form>
         </main>
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/mapping.js?v=3"></script>
+<script src="${pageContext.request.contextPath}/js/mapping.js?v=20261118"></script>
 </body>
 </html>
