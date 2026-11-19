@@ -36,6 +36,11 @@
         <ui:header eyebrow="Sales Data" title="매출 데이터" />
 
         <main class="main-content preview-main">
+            <c:if test="${not empty requestScope.importError}">
+                <p class="sales-edit-error">
+                    <c:out value="${requestScope.importError}" />
+                </p>
+            </c:if>
             <form id="salesCsvForm"
                   action="${pageContext.request.contextPath}/sales/import"
                   method="post"
