@@ -1,8 +1,10 @@
 const reviewTable = document.querySelector(".sales-review-table");
 const checkButton = document.getElementById("sales-review-check");
 const resultMessage = document.getElementById("sales-review-result");
+const salesCsvForm = document.getElementById("salesCsvForm");
+const csvSubmittedValues = document.getElementById("csvSubmittedValues");
 const amountFormatter = new Intl.NumberFormat("ko-KR");
-const unitPriceBasis = new URLSearchParams(window.location.search).get("amountBasis") === "unitPrice";
+const unitPriceBasis = reviewTable.dataset.amountBasis === "unitPrice";
 document.getElementById("sales-review-back").href =
     "mapping.jsp?amountBasis=" + (unitPriceBasis ? "unitPrice" : "lineTotal");
 const fieldLabels = {
@@ -65,11 +67,13 @@ reviewTable.querySelectorAll("[data-edit]").forEach(function (cell) {
         editor.placeholder = fieldLabels[field] + " 입력";
     }
 
-    editor.value = field === "amount" && unitPriceBasis
-        ? cell.dataset.unitPrice
-        : (cell.dataset.value != null
-            ? cell.dataset.value
-            : cell.textContent.trim());
+    const rawValue = cell.dataset.value != null
+        ? cell.dataset.value
+        : cell.textContent.trim();
+
+    editor.value = field === "date"
+        ? rawValue.replace(" ", "T")
+        : rawValue;
     cell.replaceChildren(display, editor, error);
 
     function validate() {
@@ -137,7 +141,7 @@ reviewTable.addEventListener("input", function (event) {
     updateLineTotal(event.target.closest("tr"));
 });
 
-checkButton.addEventListener("click", function () {
+salesCsvForm.addEventListener("submit", function (event) {
     let firstInvalidEditor = null;
 
     reviewFields.forEach(function (field) {
@@ -150,13 +154,49 @@ checkButton.addEventListener("click", function () {
         }
     });
 
-    if (firstInvalidEditor !== null) {
-        resultMessage.textContent = "입력값을 확인해 주세요.";
-        resultMessage.hidden = false;
-        firstInvalidEditor.focus();
-        return;
-    }
+	if (firstInvalidEditor !== null) {
+	    event.preventDefault();
 
-    alert("저장되었습니다.");
-    window.location.href = "sales_list.jsp";
+	    resultMessage.textContent = "입력값을 확인해 주세요.";
+	    resultMessage.hidden = false;
+	    firstInvalidEditor.focus();
+	    return;
+	}
+
+    csvSubmittedValues.replaceChildren();
+
+    reviewTable.querySelectorAll("tbody tr").forEach(function (row) {
+        addCsvValue("rowIndex", row.dataset.rowIndex);
+
+        addCsvValue(
+            "saleDate",
+            row.querySelector('[data-edit="date"] input').value
+        );
+
+        addCsvValue(
+            "productName",
+            row.querySelector('[data-edit="product"] input').value
+        );
+
+        addCsvValue(
+            "quantity",
+            row.querySelector('[data-edit="quantity"] input').value
+        );
+
+        addCsvValue(
+            "amount",
+            row.querySelector('[data-edit="amount"] input').value
+        );
+    });
+
 });
+
+function addCsvValue(name, value) {
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+
+    csvSubmittedValues.appendChild(input);
+}

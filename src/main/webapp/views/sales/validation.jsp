@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${empty requestScope.csvUpload or empty requestScope.csvMapping}">
+    <c:redirect url="/sales/mapping.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,16 +36,30 @@
         <ui:header eyebrow="Sales Data" title="매출 데이터" />
 
         <main class="main-content preview-main">
+            <form id="salesCsvForm"
+                  action="${pageContext.request.contextPath}/sales/import"
+                  method="post"
+                  novalidate>
+
+                <input type="hidden"
+                       name="csvDraftToken"
+                       value="<c:out value="${requestScope.csvDraftToken}" />">
+
+                <div id="csvSubmittedValues" hidden></div>
             <section class="preview-table-card">
                 <div class="card-header">
                     <div>
                         <h2>매출 내역 확인·보완</h2>
-                        <p>샘플 3건입니다. 수정할 값을 클릭하고 비어 있는 수량과 금액을 입력해 주세요.</p>
+                        <p>
+                            총 ${requestScope.csvUpload.rowCount}건입니다.
+                            수정할 값을 클릭하고 비어 있는 항목을 입력해 주세요.
+                        </p>
                         <p id="sales-amount-guide"></p>
                     </div>
                 </div>
                 <div class="table-scroll">
-                    <table class="preview-table sales-table sales-review-table">
+                    <table class="preview-table sales-table sales-review-table"
+                           data-amount-basis="${requestScope.amountBasis}">
                         <thead>
                         <tr>
                             <th scope="col">판매일자</th>
@@ -51,40 +70,41 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td data-edit="date" data-value="2026-11-01T09:12">2026-11-01 09:12</td>
-                            <td data-edit="product">아메리카노</td>
-                            <td data-edit="quantity">2</td>
-                            <td data-edit="amount" data-value="9000" data-unit-price="4500">₩ 9,000</td>
-                            <td class="sales-line-total" hidden></td>
-                        </tr>
-                        <tr>
-                            <td data-edit="date" data-value="2026-11-01T09:18">2026-11-01 09:18</td>
-                            <td data-edit="product">카페라떼</td>
-                            <td data-edit="quantity"></td>
-                            <td data-edit="amount" data-value="5500" data-unit-price="5500">₩ 5,500</td>
-                            <td class="sales-line-total" hidden></td>
-                        </tr>
-                        <tr>
-                            <td data-edit="date" data-value="2026-11-01T09:25">2026-11-01 09:25</td>
-                            <td data-edit="product">바닐라라떼</td>
-                            <td data-edit="quantity">1</td>
-                            <td data-edit="amount" data-value="" data-unit-price=""></td>
-                            <td class="sales-line-total" hidden></td>
-                        </tr>
+                        <c:forEach var="row"
+                                   items="${requestScope.csvUpload.rows}"
+                                   varStatus="status">
+                            <tr data-row-index="${status.index}">
+                                <td data-edit="date">
+                                    <c:out value="${row[requestScope.csvMapping.saleDateColumn]}" />
+                                </td>
+                                <td data-edit="product">
+                                    <c:out value="${row[requestScope.csvMapping.productNameColumn]}" />
+                                </td>
+                                <td data-edit="quantity">
+                                    <c:out value="${row[requestScope.csvMapping.quantityColumn]}" />
+                                </td>
+                                <td data-edit="amount">
+                                    <c:out value="${row[requestScope.csvMapping.amountColumn]}" />
+                                </td>
+                                <td class="sales-line-total" hidden></td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
                 <div class="preview-actions">
                     <a href="mapping.jsp" id="sales-review-back" class="secondary-button">이전: 열 매핑</a>
-                    <button type="button" id="sales-review-check" class="secondary-button">입력 확인 완료</button>
+                    <button type="submit"
+                            id="sales-review-check"
+                            class="secondary-button">매출에 반영</button>
                 </div>
                 <p id="sales-review-result" hidden></p>
             </section>
+            </form>
         </main>
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/sales_review.js?v=2"></script>
+<script src="${pageContext.request.contextPath}/js/sales_review.js?v=20261119"></script>
 </body>
 </html>

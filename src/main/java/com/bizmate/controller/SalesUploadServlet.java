@@ -41,6 +41,7 @@ public class SalesUploadServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        request.getSession().removeAttribute("salesCsvDraft");
         request.getSession().removeAttribute("salesCsvUpload");
 
         Part file;
