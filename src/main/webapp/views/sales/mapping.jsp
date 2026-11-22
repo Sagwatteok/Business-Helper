@@ -83,11 +83,11 @@
 
                         <select id="map-sale-date" name="saleDateColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <c:forEach var="header"
+                            <c:forEach var="csvHeader"
                                        items="${sessionScope.salesCsvUpload.headers}"
                                        varStatus="status">
                                 <option value="${status.index}">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </option>
                             </c:forEach>
                         </select>
@@ -102,11 +102,11 @@
 
                         <select id="map-product-name" name="productNameColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <c:forEach var="header"
+                            <c:forEach var="csvHeader"
                                        items="${sessionScope.salesCsvUpload.headers}"
                                        varStatus="status">
                                 <option value="${status.index}">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </option>
                             </c:forEach>
                         </select>
@@ -121,11 +121,11 @@
 
                         <select id="map-quantity" name="quantityColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <c:forEach var="header"
+                            <c:forEach var="csvHeader"
                                        items="${sessionScope.salesCsvUpload.headers}"
                                        varStatus="status">
                                 <option value="${status.index}">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </option>
                             </c:forEach>
                         </select>
@@ -153,11 +153,11 @@
 
                         <select id="map-line-total" name="amountColumn" class="mapping-select" required>
                             <option value="">열을 선택하세요</option>
-                            <c:forEach var="header"
+                            <c:forEach var="csvHeader"
                                        items="${sessionScope.salesCsvUpload.headers}"
                                        varStatus="status">
                                 <option value="${status.index}">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </option>
                             </c:forEach>
                         </select>
@@ -172,11 +172,11 @@
 
                         <select id="map-order-no" name="orderNoColumn" class="mapping-select">
                             <option value="">연결하지 않음</option>
-                            <c:forEach var="header"
+                            <c:forEach var="csvHeader"
                                        items="${sessionScope.salesCsvUpload.headers}"
                                        varStatus="status">
                                 <option value="${status.index}">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </option>
                             </c:forEach>
                         </select>
@@ -191,11 +191,11 @@
 
                         <select id="map-order-channel" name="orderChannelColumn" class="mapping-select">
                             <option value="">연결하지 않음</option>
-                            <c:forEach var="header"
+                            <c:forEach var="csvHeader"
                                        items="${sessionScope.salesCsvUpload.headers}"
                                        varStatus="status">
                                 <option value="${status.index}">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </option>
                             </c:forEach>
                         </select>

@@ -65,9 +65,9 @@
                     <table class="preview-table sales-preview-table">
                         <thead>
                         <tr>
-                            <c:forEach var="header" items="${sessionScope.salesCsvUpload.headers}">
+                            <c:forEach var="csvHeader" items="${sessionScope.salesCsvUpload.headers}">
                                 <th scope="col">
-                                    <c:out value="${header}" />
+                                    <c:out value="${csvHeader}" />
                                 </th>
                             </c:forEach>
                         </tr>

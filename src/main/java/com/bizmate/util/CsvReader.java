@@ -1,12 +1,69 @@
 package com.bizmate.util;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PushbackReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bizmate.model.CsvUploadData;
+
 //CSV파일을 한 행씩 읽음
 public class CsvReader {
+
+    public static CsvUploadData readFile(InputStream input, String fileName)
+            throws IOException {
+
+        try (PushbackReader reader = new PushbackReader(new InputStreamReader(input, StandardCharsets.UTF_8.newDecoder()), 1)) {
+
+            int first = reader.read();
+
+            if (first != -1 && first != '\uFEFF') {
+                reader.unread(first);
+            }
+
+            List<String> headers = readRow(reader);
+
+            if (headers == null) {
+                throw new IllegalArgumentException("파일에 열 이름이 없습니다.");
+            }
+
+            for (String header : headers) {
+                if (header.trim().isEmpty()) {
+                    throw new IllegalArgumentException("열 이름에 빈칸이 있습니다.");
+                }
+            }
+
+            List<List<String>> rows = new ArrayList<>();
+            List<String> row;
+
+            while ((row = readRow(reader)) != null) {
+                if (row.size() == 1 && row.get(0).isEmpty()) {
+                    continue;
+                }
+
+                if (row.size() != headers.size()) {
+                    throw new IllegalArgumentException(
+                            (rows.size() + 1) + "번째 데이터의 열 개수가 맞지 않습니다.");
+                }
+
+                if (rows.size() >= 10000) {
+                    throw new IllegalArgumentException(
+                            "데이터는 최대 10,000행까지 업로드할 수 있습니다.");
+                }
+
+                rows.add(row);
+            }
+
+            if (rows.isEmpty()) {
+                throw new IllegalArgumentException("파일에 데이터가 없습니다.");
+            }
+
+            return new CsvUploadData(fileName, headers, rows);
+        }
+    }
 
     public static List<String> readRow(PushbackReader reader) throws IOException {
 

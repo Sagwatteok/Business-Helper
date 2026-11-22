@@ -6,7 +6,7 @@ const removeFile = document.getElementById("expense-remove-file");
 const uploadError = document.getElementById("expense-csv-error");
 const previewButton = document.getElementById("expense-preview-button");
 
-const allowedExtensions = [".csv", ".xls", ".xlsx"];
+const allowedExtensions = [".csv"];
 const maxFileSize = 10 * 1024 * 1024;
 
 function hideFileDetails() {
@@ -40,7 +40,7 @@ expenseCsv.addEventListener("change", function () {
     });
 
     if (!isAllowed) {
-        showFileError("CSV, XLS, XLSX 파일만 선택할 수 있습니다.");
+        showFileError("CSV 파일만 선택할 수 있습니다.");
         return;
     }
 
@@ -59,8 +59,4 @@ removeFile.addEventListener("click", function () {
     expenseCsv.value = "";
     hideFileDetails();
     uploadError.hidden = true;
-});
-
-previewButton.addEventListener("click", function () {
-    window.location.href = "expense_preview.jsp";
 });

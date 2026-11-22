@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ui" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,13 +32,13 @@
                 <p>지출일, 분류, 지출 내용, 금액이 들어 있는 CSV 파일을 선택하세요.</p>
             </section>
 
-            <section class="upload-card">
-                <input type="file" id="expense-csv" accept=".csv,.xls,.xlsx" hidden>
+            <form class="upload-card" action="${pageContext.request.contextPath}/expense/upload" method="post" enctype="multipart/form-data">
+                <input type="file" id="expense-csv" name="expenseFile" accept=".csv" required hidden>
 
                 <label for="expense-csv" class="file-select-area">
                     <span class="upload-icon">↑</span>
                     <strong>클릭하여 지출 파일을 선택하세요</strong>
-                    <span>CSV, XLS, XLSX 파일을 지원합니다.</span>
+                    <span>UTF-8로 저장한 CSV 파일을 지원합니다.</span>
                 </label>
 
                 <p class="upload-guide">최대 파일 크기: 10MB</p>
@@ -54,20 +55,22 @@
                     </button>
                 </div>
 
-                <p class="upload-error" id="expense-csv-error" hidden></p>
+                <p class="upload-error" id="expense-csv-error" ${empty requestScope.uploadError ? 'hidden' : ''}>
+                    <c:out value="${requestScope.uploadError}" />
+                </p>
 
-                <button type="button" class="next-button" id="expense-preview-button" disabled>
+                <button type="submit" class="next-button" id="expense-preview-button" disabled>
                     다음: 미리보기
                 </button>
 
                 <div class="preview-actions">
-                    <a href="expense_list.jsp" class="secondary-button">취소</a>
+                    <a href="${pageContext.request.contextPath}/expense/list" class="secondary-button">취소</a>
                 </div>
-            </section>
+            </form>
         </main>
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/expense_upload.js"></script>
+<script src="${pageContext.request.contextPath}/js/expense_upload.js?v=20261122"></script>
 </body>
 </html>
