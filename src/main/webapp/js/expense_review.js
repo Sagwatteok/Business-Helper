@@ -14,7 +14,7 @@ const reviewTable = document.querySelector(".expense-review-table");
 document.querySelectorAll(".expense-review-table [data-edit]").forEach(function (cell) {
     const field = cell.dataset.edit;
     const isAmount = field === "amount";
-    const initialValue = isAmount ? cell.dataset.value : cell.textContent.trim();
+    const initialValue = cell.dataset.value != null ? cell.dataset.value : cell.textContent.trim();
     const display = document.createElement("button");
     const editor = document.createElement(field === "category" ? "select" : "input");
     const error = document.createElement("p");
@@ -129,8 +129,7 @@ checkButton.addEventListener("click", function () {
         return;
     }
 
-    alert("저장되었습니다.");
-    window.location.href = "expense_list.jsp";
+    resultMessage.textContent = "입력값 확인이 완료되었습니다.";
 });
 
 

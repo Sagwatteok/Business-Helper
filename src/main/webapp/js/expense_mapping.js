@@ -12,7 +12,3 @@ function updateNextButton() {
 
 mappingList.addEventListener("change", updateNextButton);
 updateNextButton();
-
-nextButton.addEventListener("click", function () {
-    window.location.href = "expense_review.jsp";
-});
