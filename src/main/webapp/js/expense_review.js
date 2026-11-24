@@ -6,7 +6,8 @@ const fieldLabels = {
     amount: "금액"
 };
 const reviewFields = [];
-const checkButton = document.getElementById("expense-review-check");
+const expenseCsvForm = document.getElementById("expenseCsvForm");
+const expenseSubmittedValues = document.getElementById("expenseSubmittedValues");
 const resultMessage = document.getElementById("expense-review-result");
 const reviewTable = document.querySelector(".expense-review-table");
 
@@ -107,7 +108,7 @@ document.querySelectorAll(".expense-review-table [data-edit]").forEach(function 
 });
 
 
-checkButton.addEventListener("click", function () {
+expenseCsvForm.addEventListener("submit", function (event) {
     let firstInvalidEditor = null;
 
     reviewFields.forEach(function (field) {
@@ -121,18 +122,37 @@ checkButton.addEventListener("click", function () {
         }
     });
 
-    resultMessage.hidden = false;
-
     if (firstInvalidEditor !== null) {
+        event.preventDefault();
         resultMessage.textContent = "입력값을 확인해 주세요.";
+        resultMessage.hidden = false;
         firstInvalidEditor.focus();
         return;
     }
 
-    resultMessage.textContent = "입력값 확인이 완료되었습니다.";
+    expenseSubmittedValues.replaceChildren();
+
+    reviewTable.querySelectorAll("tbody tr").forEach(function (row) {
+        addExpenseCsvValue("rowIndex", row.dataset.rowIndex);
+        addExpenseCsvValue("expenseDate", row.querySelector('[data-edit="date"] input').value);
+        addExpenseCsvValue("category", row.querySelector('[data-edit="category"] select').value);
+        addExpenseCsvValue("description", row.querySelector('[data-edit="description"] input').value);
+        addExpenseCsvValue("amount", row.querySelector('[data-edit="amount"] input').value);
+        addExpenseCsvValue("memo", row.querySelector(".expense-review-memo").value);
+    });
 });
 
 
 reviewTable.addEventListener("input", function () {
     resultMessage.hidden = true;
 });
+
+function addExpenseCsvValue(name, value) {
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+
+    expenseSubmittedValues.appendChild(input);
+}

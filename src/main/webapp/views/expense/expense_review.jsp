@@ -29,6 +29,12 @@
     <ui:header eyebrow="Expenses" title="지출 관리" />
 
     <main class="main-content preview-main">
+      <c:if test="${not empty requestScope.importError}">
+        <p><c:out value="${requestScope.importError}" /></p>
+      </c:if>
+      <form id="expenseCsvForm" action="${pageContext.request.contextPath}/expense/import" method="post" novalidate>
+        <input type="hidden" name="csvDraftToken" value="<c:out value="${requestScope.csvDraftToken}" />">
+        <div id="expenseSubmittedValues" hidden></div>
       <section class="preview-table-card">
         <div class="card-header">
           <div>
@@ -56,7 +62,7 @@
                 <td data-edit="description"><c:out value="${row[requestScope.csvMapping.descriptionColumn]}" /></td>
                 <td class="expense-amount" data-edit="amount"><c:out value="${row[requestScope.csvMapping.amountColumn]}" /></td>
                 <td>
-                  <input type="text" class="expense-review-memo" title="메모" placeholder="메모 입력" value="<c:out value="${requestScope.csvMapping.memoColumn == -1 ? '' : row[requestScope.csvMapping.memoColumn]}" />">
+                  <input type="text" class="expense-review-memo" title="메모" placeholder="메모 입력" value="<c:out value="${not empty requestScope.importError ? paramValues.memo[status.index] : (requestScope.csvMapping.memoColumn == -1 ? '' : row[requestScope.csvMapping.memoColumn])}" />">
                 </td>
               </tr>
             </c:forEach>
@@ -66,18 +72,17 @@
 
         <div class="preview-actions">
           <a href="expense_mapping.jsp" class="secondary-button">이전: 열 매핑</a>
-          <button type="button" id="expense-review-check" class="secondary-button">
-            입력 확인 완료
-          </button>
+          <button type="submit" id="expense-review-check" class="secondary-button">지출에 반영</button>
         </div>
 
         <p id="expense-review-result" hidden></p>
 
       </section>
+      </form>
     </main>
   </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/expense_review.js?v=20261122"></script>
+<script src="${pageContext.request.contextPath}/js/expense_review.js?v=20261124"></script>
 </body>
 </html>

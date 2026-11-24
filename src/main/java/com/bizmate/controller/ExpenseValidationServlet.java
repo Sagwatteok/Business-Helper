@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bizmate.model.CsvUploadData;
+import com.bizmate.model.ExpenseCsvDraft;
 
 @WebServlet("/expense/validate")
 public class ExpenseValidationServlet extends HttpServlet {
@@ -62,6 +63,9 @@ public class ExpenseValidationServlet extends HttpServlet {
             mapping.put(fieldNames[i], column);
         }
 
+        ExpenseCsvDraft draft = new ExpenseCsvDraft(uploadData, mapping);
+        session.setAttribute("expenseCsvDraft", draft);
+        request.setAttribute("csvDraftToken", draft.getToken());
         request.setAttribute("csvUpload", uploadData);
         request.setAttribute("csvMapping", mapping);
 
