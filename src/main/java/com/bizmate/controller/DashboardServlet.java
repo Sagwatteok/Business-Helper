@@ -60,37 +60,66 @@ public class DashboardServlet extends HttpServlet {
 
         long todayBalance = todaySalesAmount - todayExpenseAmount;
 
-        LocalDate weeklySalesStartDate = today.minusDays(6);
+        String salesPeriod = request.getParameter("period");
+        LocalDate salesStartDate;
+        String salesPeriodLabel;
+
+        switch (salesPeriod == null ? "7d" : salesPeriod) {
+            case "1m":
+                salesStartDate = today.minusMonths(1).plusDays(1);
+                salesPeriodLabel = "최근 한 달";
+                break;
+            case "3m":
+                salesStartDate = today.minusMonths(3).plusDays(1);
+                salesPeriodLabel = "최근 3개월";
+                break;
+            case "6m":
+                salesStartDate = today.minusMonths(6).plusDays(1);
+                salesPeriodLabel = "최근 6개월";
+                break;
+            case "1y":
+                salesStartDate = today.minusYears(1).plusDays(1);
+                salesPeriodLabel = "최근 1년";
+                break;
+            default:
+                salesPeriod = "7d";
+                salesStartDate = today.minusDays(6);
+                salesPeriodLabel = "최근 7일";
+                break;
+        }
+
         DateTimeFormatter labelFormatter = DateTimeFormatter.ofPattern("MM/dd");
+        Map<LocalDate, Long> dailySales = new HashMap<>();
 
-        List<String> weeklySalesLabels = new ArrayList<>();
-        List<Long> weeklySalesAmounts = new ArrayList<>();
-        long weeklySalesTotal = 0;
+        if (sales != null) {
+            for (Sale sale : sales) {
+                LocalDate saleDate = sale.getSaleDate().toLocalDate();
 
-        for (int i = 0; i < 7; i++) {
-            LocalDate date = weeklySalesStartDate.plusDays(i);
-            long dailyAmount = 0;
-
-            if (sales != null) {
-                for (Sale sale : sales) {
-                    if (date.equals(sale.getSaleDate().toLocalDate())) {
-                        dailyAmount += sale.getAmount();
-                    }
+                if (!saleDate.isBefore(salesStartDate) && !saleDate.isAfter(today)) {
+                    dailySales.put(saleDate, dailySales.getOrDefault(saleDate, 0L) + sale.getAmount());
                 }
             }
-
-            weeklySalesLabels.add(date.format(labelFormatter));
-            weeklySalesAmounts.add(dailyAmount);
-            weeklySalesTotal += dailyAmount;
         }
-        
+
+        List<String> salesLabels = new ArrayList<>();
+        List<Long> salesAmounts = new ArrayList<>();
+        long salesTotal = 0;
+
+        for (LocalDate date = salesStartDate; !date.isAfter(today); date = date.plusDays(1)) {
+            long dailyAmount = dailySales.getOrDefault(date, 0L);
+            salesLabels.add(date.format(labelFormatter));
+            salesAmounts.add(dailyAmount);
+            salesTotal += dailyAmount;
+        }
+
+        LocalDate topProductsStartDate = today.minusDays(6);
         Map<String, ProductSalesSummary> productSummaries = new HashMap<>();
 
         if (sales != null) {
             for (Sale sale : sales) {
                 LocalDate saleDate = sale.getSaleDate().toLocalDate();
 
-                if (saleDate.isBefore(weeklySalesStartDate) || saleDate.isAfter(today)) {
+                if (saleDate.isBefore(topProductsStartDate) || saleDate.isAfter(today)) {
                     continue;
                 }
 
@@ -123,10 +152,12 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("todaySalesAmount", todaySalesAmount);
         request.setAttribute("todayExpenseAmount", todayExpenseAmount);
         request.setAttribute("todayBalance", todayBalance);
-        request.setAttribute("weeklySalesStartDate", weeklySalesStartDate);
-        request.setAttribute("weeklySalesLabels", weeklySalesLabels);
-        request.setAttribute("weeklySalesAmounts", weeklySalesAmounts);
-        request.setAttribute("weeklySalesTotal", weeklySalesTotal);
+        request.setAttribute("salesPeriod", salesPeriod);
+        request.setAttribute("salesPeriodLabel", salesPeriodLabel);
+        request.setAttribute("salesStartDate", salesStartDate);
+        request.setAttribute("salesLabels", salesLabels);
+        request.setAttribute("salesAmounts", salesAmounts);
+        request.setAttribute("salesTotal", salesTotal);
         request.setAttribute("topProducts", topProducts);
         
         request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);

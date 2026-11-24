@@ -1,25 +1,33 @@
-const chartCanvas = document.getElementById("weeklySalesChart");
-const weeklySalesData = document.querySelectorAll("#weekly-sales-data span");
-const weeklySalesLabels = [];
-const weeklySalesAmounts = [];
+const salesPeriod = document.getElementById("salesPeriod");
 
-weeklySalesData.forEach(function (item) {
-    weeklySalesLabels.push(item.dataset.label);
-    weeklySalesAmounts.push(Number(item.dataset.amount));
+if (salesPeriod) {
+    salesPeriod.addEventListener("change", function () {
+        salesPeriod.form.requestSubmit();
+    });
+}
+
+const chartCanvas = document.getElementById("salesChart");
+const salesData = document.querySelectorAll("#sales-chart-data span");
+const salesLabels = [];
+const salesAmounts = [];
+
+salesData.forEach(function (item) {
+    salesLabels.push(item.dataset.label);
+    salesAmounts.push(Number(item.dataset.amount));
 });
 
 if (chartCanvas) {
-    const weeklySalesChart = new Chart(chartCanvas, {
+    const salesChart = new Chart(chartCanvas, {
         type: "line",
 
         data: {
             //차트의 가로축에 표시할 이름
-            labels: weeklySalesLabels,
+            labels: salesLabels,
 
             datasets: [
                 {
                     label: "매출",
-                    data: weeklySalesAmounts,
+                    data: salesAmounts,
                     borderColor: "#84B2D0", //그래프 선 색상
                     backgroundColor: "rgba(132, 178, 208, 0.18)", //선 아래에 채워지는 배경색
 
@@ -30,7 +38,9 @@ if (chartCanvas) {
                     pointBackgroundColor: "#84B2D0", //	그래프 점 내부 색상
                     pointBorderColor: "#FFFFFF", //	그래프 점 테두리 색상
                     pointBorderWidth: 2, //	그래프 점 테두리 굵기
-                    pointRadius: 4 //그래프 점 크기
+                    pointRadius: salesLabels.length > 31 ? 0 : 4, //그래프 점 크기
+                    pointHoverRadius: 5,
+                    pointHitRadius: 8
                 }
             ]
         },
@@ -55,6 +65,11 @@ if (chartCanvas) {
 
             scales: { //가로축과 세로축 설정 묶음
                 x: {
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 12,
+                        maxRotation: 0
+                    },
                     grid: { //차트 배경의 격자선 설정
                         display: false
                     }

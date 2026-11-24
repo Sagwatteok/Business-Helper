@@ -83,28 +83,35 @@
             <section class="sales-chart-card">
                 <div class="card-header">
                     <div>
-                        <h2>최근 7일 매출 추이</h2>
+                        <h2><c:out value="${requestScope.salesPeriodLabel}" /> 매출 추이</h2>
                         <p>
-                            <c:out value="${requestScope.weeklySalesStartDate}" />
+                            <c:out value="${requestScope.salesStartDate}" />
                             ~
                             <c:out value="${requestScope.dashboardDate}" />
                         </p>
                     </div>
 
-                    <button type="button" class="period-button">
-                        최근 7일
-                    </button>
+                    <form action="${pageContext.request.contextPath}/dashboard" method="get">
+                        <select id="salesPeriod" name="period" class="period-button" title="매출 조회 기간">
+                            <option value="7d" ${requestScope.salesPeriod == '7d' ? 'selected' : ''}>최근 7일</option>
+                            <option value="1m" ${requestScope.salesPeriod == '1m' ? 'selected' : ''}>한 달</option>
+                            <option value="3m" ${requestScope.salesPeriod == '3m' ? 'selected' : ''}>3개월</option>
+                            <option value="6m" ${requestScope.salesPeriod == '6m' ? 'selected' : ''}>6개월</option>
+                            <option value="1y" ${requestScope.salesPeriod == '1y' ? 'selected' : ''}>1년</option>
+                        </select>
+                        <noscript><button type="submit" class="period-button">조회</button></noscript>
+                    </form>
                 </div>
 
                 <div class="sales-summary">
-                    <p>최근 7일 총매출</p>
+                    <p><c:out value="${requestScope.salesPeriodLabel}" /> 총매출</p>
                     <strong>
-                        ₩ <fmt:formatNumber value="${requestScope.weeklySalesTotal}" pattern="#,##0" />
+                        ₩ <fmt:formatNumber value="${requestScope.salesTotal}" pattern="#,##0" />
                     </strong>
                 </div>
 
                 <div class="chart-area">
-                    <canvas id="weeklySalesChart"></canvas>
+                    <canvas id="salesChart"></canvas>
                 </div>
             </section>
 
@@ -182,14 +189,13 @@
     </div>
 </div>
 
-<div id="weekly-sales-data" hidden="hidden">
-    <c:forEach var="label" items="${requestScope.weeklySalesLabels}" varStatus="status">
-        <span data-label="${label}"
-              data-amount="${requestScope.weeklySalesAmounts[status.index]}"></span>
+<div id="sales-chart-data" hidden="hidden">
+    <c:forEach var="label" items="${requestScope.salesLabels}" varStatus="status">
+        <span data-label="${label}" data-amount="${requestScope.salesAmounts[status.index]}"></span>
     </c:forEach>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="${pageContext.request.contextPath}/js/dashboard.js?v=20261117"></script>
+<script src="${pageContext.request.contextPath}/js/dashboard.js?v=20261124-2"></script>
 </body>
 </html>
