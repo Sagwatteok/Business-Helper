@@ -1,10 +1,13 @@
 const salesPeriod = document.getElementById("salesPeriod");
+const topProductsPeriod = document.getElementById("topProductsPeriod");
 
-if (salesPeriod) {
-    salesPeriod.addEventListener("change", function () {
-        salesPeriod.form.requestSubmit();
-    });
-}
+[salesPeriod, topProductsPeriod].forEach(function (select) {
+    if (select) {
+        select.addEventListener("change", function () {
+            select.form.requestSubmit();
+        });
+    }
+});
 
 const chartCanvas = document.getElementById("salesChart");
 const salesData = document.querySelectorAll("#sales-chart-data span");

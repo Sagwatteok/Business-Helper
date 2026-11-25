@@ -67,7 +67,7 @@ public class DashboardServlet extends HttpServlet {
         switch (salesPeriod == null ? "7d" : salesPeriod) {
             case "1m":
                 salesStartDate = today.minusMonths(1).plusDays(1);
-                salesPeriodLabel = "최근 한 달";
+                salesPeriodLabel = "최근 1개월";
                 break;
             case "3m":
                 salesStartDate = today.minusMonths(3).plusDays(1);
@@ -112,7 +112,30 @@ public class DashboardServlet extends HttpServlet {
             salesTotal += dailyAmount;
         }
 
-        LocalDate topProductsStartDate = today.minusDays(6);
+        String topProductsPeriod = request.getParameter("topPeriod");
+        LocalDate topProductsStartDate;
+        String topProductsPeriodLabel;
+
+        switch (topProductsPeriod == null ? "weekly" : topProductsPeriod) {
+            case "daily":
+                topProductsStartDate = today;
+                topProductsPeriodLabel = "오늘";
+                break;
+            case "monthly":
+                topProductsStartDate = today.minusMonths(1).plusDays(1);
+                topProductsPeriodLabel = "최근 1개월";
+                break;
+            case "yearly":
+                topProductsStartDate = today.minusYears(1).plusDays(1);
+                topProductsPeriodLabel = "최근 1년";
+                break;
+            default:
+                topProductsPeriod = "weekly";
+                topProductsStartDate = today.minusDays(6);
+                topProductsPeriodLabel = "최근 7일";
+                break;
+        }
+
         Map<String, ProductSalesSummary> productSummaries = new HashMap<>();
 
         if (sales != null) {
@@ -158,6 +181,9 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("salesLabels", salesLabels);
         request.setAttribute("salesAmounts", salesAmounts);
         request.setAttribute("salesTotal", salesTotal);
+        request.setAttribute("topProductsPeriod", topProductsPeriod);
+        request.setAttribute("topProductsPeriodLabel", topProductsPeriodLabel);
+        request.setAttribute("topProductsStartDate", topProductsStartDate);
         request.setAttribute("topProducts", topProducts);
         
         request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);

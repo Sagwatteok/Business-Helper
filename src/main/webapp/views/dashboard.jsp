@@ -92,9 +92,10 @@
                     </div>
 
                     <form action="${pageContext.request.contextPath}/dashboard" method="get">
+                        <input type="hidden" name="topPeriod" value="${requestScope.topProductsPeriod}">
                         <select id="salesPeriod" name="period" class="period-button" title="매출 조회 기간">
                             <option value="7d" ${requestScope.salesPeriod == '7d' ? 'selected' : ''}>최근 7일</option>
-                            <option value="1m" ${requestScope.salesPeriod == '1m' ? 'selected' : ''}>한 달</option>
+                            <option value="1m" ${requestScope.salesPeriod == '1m' ? 'selected' : ''}>1개월</option>
                             <option value="3m" ${requestScope.salesPeriod == '3m' ? 'selected' : ''}>3개월</option>
                             <option value="6m" ${requestScope.salesPeriod == '6m' ? 'selected' : ''}>6개월</option>
                             <option value="1y" ${requestScope.salesPeriod == '1y' ? 'selected' : ''}>1년</option>
@@ -119,10 +120,20 @@
                 <div class="card-header">
                     <div>
                         <h2>인기 상품 TOP 3</h2>
-                        <p>최근 7일 판매량 기준</p>
+                        <p><c:out value="${requestScope.topProductsPeriodLabel}" /> 판매량 기준</p>
                     </div>
 
-                    <a href="#" class="text-link">전체 상품 보기</a>
+                    <form action="${pageContext.request.contextPath}/dashboard" method="get">
+                        <input type="hidden" name="period" value="${requestScope.salesPeriod}">
+                        <select id="topProductsPeriod" name="topPeriod" class="period-button" title="인기 상품 조회 기간">
+                            <option value="daily" ${requestScope.topProductsPeriod == 'daily' ? 'selected' : ''}>일간</option>
+                            <option value="weekly" ${requestScope.topProductsPeriod == 'weekly' ? 'selected' : ''}>주간</option>
+                            <option value="monthly" ${requestScope.topProductsPeriod == 'monthly' ? 'selected' : ''}>월간</option>
+                            <option value="yearly" ${requestScope.topProductsPeriod == 'yearly' ? 'selected' : ''}>연간</option>
+                        </select>
+                        <noscript><button type="submit" class="period-button">조회</button></noscript>
+                        <a href="#" class="text-link">전체 상품 보기</a>
+                    </form>
                 </div>
 
                 <table class="top-product-table">
@@ -157,7 +168,7 @@
 
                     <c:if test="${empty requestScope.topProducts}">
                         <tr>
-                            <td colspan="4">최근 7일 매출 내역이 없습니다.</td>
+                            <td colspan="4"><c:out value="${requestScope.topProductsPeriodLabel}" /> 매출 내역이 없습니다.</td>
                         </tr>
                     </c:if>
                     </tbody>
@@ -196,6 +207,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="${pageContext.request.contextPath}/js/dashboard.js?v=20261124-2"></script>
+<script src="${pageContext.request.contextPath}/js/dashboard.js?v=20261124-3"></script>
 </body>
 </html>
