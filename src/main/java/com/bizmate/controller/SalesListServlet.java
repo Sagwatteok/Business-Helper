@@ -1,9 +1,9 @@
 package com.bizmate.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.bizmate.dao.SalesDao;
 import com.bizmate.model.Sale;
 
 @WebServlet("/sales/list")
@@ -20,38 +20,17 @@ public class SalesListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    @SuppressWarnings("unchecked")
-    private List<Sale> getSales(HttpSession session) {
-        List<Sale> sales = (List<Sale>) session.getAttribute("sales");
+    private final SalesDao salesDao = new SalesDao();
 
-        if (sales == null) {
-            sales = new ArrayList<>();
-
-            sales.add(new Sale(
-                    LocalDateTime.of(2026, 11, 1, 9, 12),
-                    "아메리카노", 2, 9000, "", "매장 POS"));
-
-            sales.add(new Sale(
-                    LocalDateTime.of(2026, 11, 1, 9, 18),
-                    "카페라떼", 1, 5500, "", "키오스크"));
-
-            sales.add(new Sale(
-                    LocalDateTime.of(2026, 11, 1, 9, 25),
-                    "바닐라라떼", 1, 6000, "", "배달의민족"));
-
-            session.setAttribute("sales", sales);
-        }
-
-        return sales;
-    }
-
-    
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Sale> sales;
 
-        HttpSession session = request.getSession();
-        List<Sale> sales = getSales(session);
+        try {
+            sales = salesDao.findAll();
+        } catch (SQLException e) {
+            throw new ServletException("매출 목록을 조회하지 못했습니다.", e);
+        }
 
         long totalSalesAmount = 0;
 
@@ -115,26 +94,20 @@ public class SalesListServlet extends HttpServlet {
 
         orderNo = orderNo == null ? "" : orderNo.trim();
         orderChannel = orderChannel == null ? "" : orderChannel.trim();
-
-        HttpSession session = request.getSession();
-        List<Sale> sales = getSales(session);
+        Sale sale = new Sale(saleDate, productName.trim(), quantity, amount, orderNo, orderChannel);
 
         try {
-            long total = amount;
-
-            for (Sale sale : sales) {
-                total = Math.addExact(total, sale.getAmount());
+            salesDao.insert(sale);
+        } catch (SQLException e) {
+            if ("22003".equals(e.getSQLState())) {
+                showFormError(request, response, "누적 매출 금액이 처리 가능한 범위를 초과합니다.");
+            } else {
+                log("매출 등록 실패", e);
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                showFormError(request, response, "매출을 저장하지 못했습니다. 다시 시도해 주세요.");
             }
-        } catch (ArithmeticException e) {
-            showFormError(request, response, "누적 매출 금액이 처리 가능한 범위를 초과합니다.");
             return;
         }
-
-        Sale sale = new Sale(
-                saleDate, productName.trim(), quantity,
-                amount, orderNo, orderChannel);
-
-        sales.add(sale);
 
         response.sendRedirect(request.getContextPath() + "/sales/list");
     }

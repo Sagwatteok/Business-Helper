@@ -50,8 +50,7 @@ public class CsvReader {
                 }
 
                 if (rows.size() >= 10000) {
-                    throw new IllegalArgumentException(
-                            "데이터는 최대 10,000행까지 업로드할 수 있습니다.");
+                    throw new IllegalArgumentException("데이터는 최대 10,000행까지 업로드할 수 있습니다.");
                 }
 
                 rows.add(row);

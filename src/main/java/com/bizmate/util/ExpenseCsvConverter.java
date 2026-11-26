@@ -7,6 +7,7 @@ import java.util.Set;
 import com.bizmate.model.Expense;
 import com.bizmate.model.ExpenseCsvDraft;
 
+//CSV에서 받은 지출 데이터 검사 -> Expense 객체 생성
 public class ExpenseCsvConverter {
 
     private static final Set<String> CATEGORIES = Set.of("재료비", "임대료", "인건비", "공과금", "기타");

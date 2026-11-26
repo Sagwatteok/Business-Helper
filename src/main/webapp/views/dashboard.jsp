@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BizMate | 대시보드</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css?v=20261125">
 </head>
 <body>
 <div class="app-layout">

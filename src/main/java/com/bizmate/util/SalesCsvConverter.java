@@ -7,6 +7,7 @@ import java.util.List;
 import com.bizmate.model.Sale;
 import com.bizmate.model.SalesCsvDraft;
 
+//CSV에서 받은 매출 데이터 검사 -> Sale 객체 생성
 public class SalesCsvConverter {
 
     public static Sale createSale(
