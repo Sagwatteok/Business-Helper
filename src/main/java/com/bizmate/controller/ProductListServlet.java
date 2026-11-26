@@ -1,7 +1,7 @@
 package com.bizmate.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,8 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.bizmate.dao.ProductDao;
 import com.bizmate.model.Product;
 
 @WebServlet("/product/list")
@@ -19,30 +19,15 @@ public class ProductListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unchecked")
-    private List<Product> getProducts(HttpSession session) {
-        List<Product> products = (List<Product>) session.getAttribute("products");
-
-        if (products == null) {
-            products = new ArrayList<>();
-            products.add(new Product("아메리카노", "커피", 4500, 1200, "active"));
-            products.add(new Product("카페라떼", "커피", 5500, 1800, "active"));
-            products.add(new Product("바닐라라떼", "커피", 6000, 2100, "inactive"));
-
-            session.setAttribute("products", products);
-        }
-
-        return products;
-    }
-
+    private final ProductDao productDao = new ProductDao();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-
-        request.setAttribute("products", getProducts(session));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            request.setAttribute("products", productDao.findAll());
+        } catch (SQLException e) {
+            throw new ServletException("상품 목록을 조회하지 못했습니다.", e);
+        }
 
         request.getRequestDispatcher("/views/product/product_list.jsp").forward(request, response);
     }
@@ -84,9 +69,16 @@ public class ProductListServlet extends HttpServlet {
 
         Product product = new Product(productName.trim(), category, salePrice, estimatedCost, saleStatus);
 
-        HttpSession session = request.getSession();
-        getProducts(session).add(product); //세션에 저장된거 가져와서 새 상품 추가
-        session.setAttribute("productSaved", true);
+		try {
+			productDao.insert(product);
+		} catch (SQLException e) {
+			log("상품 등록 실패", e);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			error(request, response, "상품을 저장하지 못했습니다. 다시 시도해 주세요.");
+			return;
+		}
+
+        request.getSession().setAttribute("productSaved", true);
         response.sendRedirect(request.getContextPath() + "/product/list"); //프로젝트 기본 주소와 상품 목록 경로 합침
     }
 

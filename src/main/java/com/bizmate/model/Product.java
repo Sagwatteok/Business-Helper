@@ -8,19 +8,24 @@ public class Product {
     private long salePrice;
     private long estimatedCost;
     private String saleStatus;
-    private String productId = UUID.randomUUID().toString(); //상품을 구별할 ID
-    
+    private final String productId;
+
     public Product() {
+        this(null, null, 0, 0, null);
     }
 
-	public Product(String productName, String category, long salePrice, long estimatedCost, String saleStatus) {
-		super();
-		this.productName = productName;
-		this.category = category;
-		this.salePrice = salePrice;
-		this.estimatedCost = estimatedCost;
-		this.saleStatus = saleStatus;
-	}
+    public Product(String productName, String category, long salePrice, long estimatedCost, String saleStatus) {
+        this(UUID.randomUUID().toString(), productName, category, salePrice, estimatedCost, saleStatus);
+    }
+
+    public Product(String productId, String productName, String category, long salePrice, long estimatedCost, String saleStatus) {
+        this.productId = productId;
+        this.productName = productName;
+        this.category = category;
+        this.salePrice = salePrice;
+        this.estimatedCost = estimatedCost;
+        this.saleStatus = saleStatus;
+    }
 
 	public String getProductName() {
 		return productName;
